@@ -5,11 +5,8 @@ function Scene(background, mario){
     this.mario = mario;
 }
 
-Scene.prototype.draw = function (){
-    for (var i = this.background.length - 1; i >= 0; i--) {
-        this.background[i].draw();
-    };
-    // this.background.draw();
+Scene.prototype.drawScene = function (){
+    forEach(this.background, Entity2d.prototype.draw);
     this.mario.draw();
 };
 
@@ -20,19 +17,23 @@ Scene.prototype.keypress = function (event) {
     var downArrow = 40;
     switch (event.which) {
         case  leftArrow:
-            this.background[0].moveRight();
-            this.background[1].moveRight();
+            forEach(this.background, Entity2d.prototype.moveRight);
             break;
         case  upArrow:
             this.mario.moveUp();
             break;
         case  rightArrow:
-            this.background[0].moveLeft();
-            this.background[1].moveLeft();
+            forEach(this.background, Entity2d.prototype.moveLeft);
             break;
         case  downArrow:
             this.mario.moveDown();
             break;
     }
 
+};
+
+var forEach = function(array, functionCall) {
+    for (var i = 0; i < array.length; i++) {
+        functionCall.apply(array[i]);
+    };
 };
