@@ -14,7 +14,7 @@ game.scene = new Scene([background, secondBackground], mario);
     
     function gameLoop() {
         game.context.clearRect(0, 0, 800, 450);
-        game.scene.draw();
+        game.scene.drawScene();
     }
 
     window.setInterval(gameLoop, 1000 / 60); // 60fps
