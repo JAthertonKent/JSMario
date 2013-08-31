@@ -1,6 +1,6 @@
 describe("Entity2d", function () {
     var background;
-    var entity;
+    var mario;
     var position;
     var mario_sprite;
     var background_sprite;
@@ -42,8 +42,11 @@ describe("Entity2d", function () {
         expect(local_mario.getY()).toBeGreaterThan(-1);
     });
 
-    it("should come back down to earth", function() {
+    it("should scroll background when mario moves left", function() {
+        background = jasmine.createSpyObj('entity2d', ['moveRight', 'draw']);
+        background.draw();
         mario.draw();
-        expect(mario.gravity).toHaveBeenCalled();
+        game.keypress(37);
+        expect(background.moveRight).toHaveBeenCalled();
     })
 });
