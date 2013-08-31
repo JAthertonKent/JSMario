@@ -8,7 +8,6 @@ describe("Entity2d", function () {
     var spyBackground2;
     var scene;
 
-
     beforeEach(function () {
         position = jasmine.createSpyObj('vector2d', ['getX', 'getY', 'addX', 'addY']);
         mario_sprite = jasmine.createSpyObj('sprite', ['draw']);
@@ -49,7 +48,7 @@ describe("Entity2d", function () {
     });
 
     it("should scroll two backgrounds at once", function() {
-        scene.draw();
+        scene.drawScene();
         scene.keypress({which: 37});
         expect(spyBackground.moveRight).toHaveBeenCalled();
         expect(spyBackground2.moveRight).toHaveBeenCalled();

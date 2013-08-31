@@ -1,12 +1,15 @@
 "use strict";
 
-function Scene(context){
-    this.background = new Entity2d(new Vector2d(0, 0), new Sprite(context, 'img/bg.jpg'));
-    this.mario = new Entity2d(new Vector2d(200, 100), new Sprite(context, 'http://www.dan-dare.org/Dan%20Mario/SMB1MarioSmallAni.gif'));    
+function Scene(background, mario){
+    this.background = background;
+    this.mario = mario;
 }
 
 Scene.prototype.draw = function (){
-    this.background.draw();
+    for (var i = this.background.length - 1; i >= 0; i--) {
+        this.background[i].draw();
+    };
+    // this.background.draw();
     this.mario.draw();
 };
 
@@ -17,13 +20,15 @@ Scene.prototype.keypress = function (event) {
     var downArrow = 40;
     switch (event.which) {
         case  leftArrow:
-            this.background.moveRight();
+            this.background[0].moveRight();
+            this.background[1].moveRight();
             break;
         case  upArrow:
             this.mario.moveUp();
             break;
         case  rightArrow:
-            this.background.moveLeft();
+            this.background[0].moveLeft();
+            this.background[1].moveLeft();
             break;
         case  downArrow:
             this.mario.moveDown();
