@@ -23,7 +23,8 @@ Scene.prototype.keypress = function (event) {
             this.mario.moveUp();
             break;
         case  rightArrow:
-            forEach(this.background, Background.prototype.moveLeft);
+            this.mario.moveRight();
+            //forEach(this.background, Background.prototype.moveLeft);
             break;
         case  downArrow:
             this.mario.moveDown();

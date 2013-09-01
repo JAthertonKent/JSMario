@@ -28,12 +28,12 @@ describe("Entity2d", function () {
         expect(mario_sprite.draw).toHaveBeenCalledWith(position);
     });
 
-    it("should draw background", function(){
+    it("should draw background", function() {
         background.draw();
         expect(background_sprite.draw).toHaveBeenCalledWith(position);
     });
 
-    it("should not let mario go underground", function(){
+    it("should not let mario go underground", function() {
         var local_mario = new Entity2d(new Vector2d(200, 100), mario_sprite);
         local_mario.draw();
         for(var i = 0; i < 100; i++){
@@ -72,9 +72,17 @@ describe("Entity2d", function () {
         expect(spyMario.moveLeft).toHaveBeenCalled();
    });
 
-   it("should prevent mario from going off screen when he goes left", function(){
+   it("should prevent mario from going off screen when he goes left", function() {
         mario = new Entity2d(new Vector2d(5, 200), mario_sprite);
         mario.moveLeft();
         expect(mario.getX()).toBeGreaterThan(0);    
+   });
+
+   it("should let mario walk around half the scene without the background moving", function() {
+       mario = new Entity2d(new Vector2d(5, 200), mario_sprite);
+       scene = new Scene([spyBackground, spyBackground2], mario);
+       scene.drawScene();
+       scene.keypress({which: 39});
+       expect(mario.getX()).toEqual(10);   
    });
 });

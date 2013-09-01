@@ -24,7 +24,11 @@ Entity2d.prototype.moveLeft = function() {
 };
 
 Entity2d.prototype.moveRight = function() {
-    return this.position.addX(this.step);
+    if (this.position.getX() > 400) {
+        forEach(game.scene.background, Background.prototype.moveLeft);
+    } else { 
+        return this.position.addX(this.step);
+    }
 };
 
 Entity2d.prototype.moveUp = function() {

@@ -12,10 +12,6 @@ var mario = new Entity2d(new Vector2d(200, 100), new Sprite(game.context, 'img/m
 
 game.scene = new Scene([background, secondBackground], mario);
 
-$(document.body).on('keydown', function (event) {
-    game.scene.keypress(event);
-});
-
 var start = function (window) {
     
     function gameLoop() {
@@ -26,5 +22,8 @@ var start = function (window) {
     window.setInterval(gameLoop, 1000 / 60); // 60fps
 };
 
-
 start(window);
+
+$(document.body).on('keydown', function (event) {
+    game.scene.keypress(event);
+});
