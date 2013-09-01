@@ -69,9 +69,9 @@ describe("Entity2d", function () {
        expect(mario.getX()).toEqual(10);   
     });
 
-    it("should flip mario when he walks in the opposite direction", function(){
+    it("should flip mario when he walks left", function(){
         scene.drawScene();
-        scene.keypress({which: 39});
+        scene.keypress({which: 37});
         expect(mario_sprite.flipImage).toHaveBeenCalled();
     });
 
