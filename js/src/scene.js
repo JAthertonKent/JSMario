@@ -11,26 +11,14 @@ Scene.prototype.drawScene = function (){
 };
 
 Scene.prototype.keypress = function (event) {
-    var leftArrow = 37;
-    var upArrow = 38;
-    var rightArrow = 39;
-    var downArrow = 40;
-    switch (event.which) {
-        case  leftArrow:
-            this.mario.moveLeft();
-            break;
-        case  upArrow:
-            this.mario.moveUp();
-            break;
-        case  rightArrow:
-            this.mario.moveRight();
-            //forEach(this.background, Background.prototype.moveLeft);
-            break;
-        case  downArrow:
-            this.mario.moveDown();
-            break;
-    }
+    var keyMap = {
+        37: this.mario.moveLeft,    //left arrow
+        38: this.mario.moveUp,      //up arrow
+        39: this.mario.moveRight,   //right arrow
+        40: this.mario.moveDown     //down arrow
+    };
 
+    keyMap[event.which].apply(this.mario);
 };
 
 var forEach = function(array, functionCall) {
