@@ -9,6 +9,7 @@ function Actor(position, sprite) {
 Actor.prototype = new Entity2d();
 
 Actor.prototype.moveLeft = function() {
+    this.sprite.flipImage(this.position);
     return this.position.getX() <= 5 ? this.position.addX(this.step) : this.position.addX(-this.step);
     //return this.position.addX(-this.step);
 };
