@@ -12,7 +12,7 @@ describe("Entity2d", function () {
         position = jasmine.createSpyObj('vector2d', ['getX', 'getY', 'addX', 'addY']);
         mario_sprite = jasmine.createSpyObj('sprite', ['draw']);
         background_sprite = jasmine.createSpyObj('sprite', ['draw']);
-        mario = new Entity2d(position, mario_sprite);
+        mario = new Actor(position, mario_sprite);
         background = new Background(position, background_sprite);
         spyBackground = jasmine.createSpyObj('background', ['moveRight']);
         spyBackground2 = jasmine.createSpyObj('background', ['moveRight']);
@@ -27,28 +27,27 @@ describe("Entity2d", function () {
         mario.draw();
         expect(mario_sprite.draw).toHaveBeenCalledWith(position);
     });
-
   
     it("should not let mario go underground", function() {
-        var local_mario = new Entity2d(new Vector2d(200, 100), mario_sprite);
-        local_mario.draw();
+        mario = new Actor(new Vector2d(200, 100), mario_sprite);
+        mario.draw();
         for(var i = 0; i < 100; i++){
-            local_mario.moveDown();
+            mario.moveDown();
         }
-        expect(local_mario.getY()).toBeLessThan(401);
+        expect(mario.getY()).toBeLessThan(401);
     });
 
     it("should not let mario get too high", function(){
-        var local_mario = new Entity2d(new Vector2d(200, 100), mario_sprite);
-        local_mario.draw();
+        mario = new Actor(new Vector2d(200, 100), mario_sprite);
+        mario.draw();
         for(var i = 0; i < 100; i++){
-            local_mario.moveUp();
+            mario.moveUp();
         }
-        expect(local_mario.getY()).toBeGreaterThan(-1);
+        expect(mario.getY()).toBeGreaterThan(-1);
     });
  
     it("should let mario move to left most side of the scene", function() {
-        spyMario = jasmine.createSpyObj('entity2d', ['moveLeft', 'draw']);
+        spyMario = jasmine.createSpyObj('actor', ['moveLeft', 'draw']);
         scene = new Scene([spyBackground, spyBackground2], spyMario);
         scene.drawScene();
         scene.keypress({which: 37});
@@ -56,13 +55,13 @@ describe("Entity2d", function () {
     });
 
     it("should prevent mario from going off screen when he goes left", function() {
-        mario = new Entity2d(new Vector2d(5, 200), mario_sprite);
+        mario = new Actor(new Vector2d(5, 200), mario_sprite);
         mario.moveLeft();
         expect(mario.getX()).toBeGreaterThan(0);    
     });
 
     it("should let mario walk around half the scene", function() {
-       mario = new Entity2d(new Vector2d(5, 200), mario_sprite);
+       mario = new Actor(new Vector2d(5, 200), mario_sprite);
        scene = new Scene([spyBackground, spyBackground2], mario);
        scene.drawScene();
        scene.keypress({which: 39});

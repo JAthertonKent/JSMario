@@ -19,25 +19,18 @@ Entity2d.prototype.getY = function() {
 };
 
 Entity2d.prototype.moveLeft = function() {
-    return this.position.getX() <= 5 ? this.position.addX(this.step) : this.position.addX(-this.step);
-    //return this.position.addX(-this.step);
+    return this.position.addX(-this.step);
 };
 
 Entity2d.prototype.moveRight = function() {
-    if (this.position.getX() > 400) {
-        forEach(game.scene.background, Background.prototype.moveLeft);
-    } else { 
-        return this.position.addX(this.step);
-    }
+    return this.position.addX(this.step);
 };
 
 Entity2d.prototype.moveUp = function() {
-    var bound = 0;
-    return this.position.getY() < bound ? this.position.addY(-this.position.getY()) : this.position.addY(-this.step);
+    return this.position.addY(-this.step);
 };
 
 Entity2d.prototype.moveDown = function() {
-    var bound = 400;
-    return this.position.getY() > bound ? this.position.addY(-(this.position.getY()-bound)) : this.position.addY(this.step);
+    return this.position.addY(this.step);
 };
 
