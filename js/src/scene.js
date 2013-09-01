@@ -17,7 +17,7 @@ Scene.prototype.keypress = function (event) {
     var downArrow = 40;
     switch (event.which) {
         case  leftArrow:
-            forEach(this.background, Entity2d.prototype.moveRight);
+            this.mario.moveLeft();
             break;
         case  upArrow:
             this.mario.moveUp();

@@ -53,14 +53,23 @@ describe("Entity2d", function () {
 
     it("should scroll two backgrounds at once", function() {
         scene.drawScene();
-        scene.keypress({which: 37});
+        scene.keypress({which: 39});
         expect(spyBackground.position.addX).toHaveBeenCalled();
         expect(spyBackground2.position.addX).toHaveBeenCalled();
     });
 
-   it("should should move a background to the far right when it is out view", function() {
+   it("should move a background to the far right when it is out view", function() {
         background = new Entity2d(new Vector2d(-795, 0),background_sprite);
         background.moveLeft();
         expect(background.getX()).toBeGreaterThan(799);
     });
+
+   it("should let mario move to left most side of the scene", function() {
+        spyMario = jasmine.createSpyObj('entity2d', ['moveLeft', 'draw']);
+        scene = new Scene([spyBackground, spyBackground2], spyMario);
+        scene.drawScene();
+        scene.keypress({which: 37});
+        expect(spyMario.moveLeft).toHaveBeenCalled();
+   });
+
 });
