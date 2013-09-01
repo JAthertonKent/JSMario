@@ -72,4 +72,9 @@ describe("Entity2d", function () {
         expect(spyMario.moveLeft).toHaveBeenCalled();
    });
 
+   it("should prevent mario from going off screen when he goes left", function(){
+        mario = new Entity2d(new Vector2d(1, 200), mario_sprite);
+        mario.moveLeft();
+        expect(mario.getX()).toBeGreaterThan(0);    
+   });
 });
