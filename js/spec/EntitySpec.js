@@ -13,9 +13,9 @@ describe("Entity2d", function () {
         mario_sprite = jasmine.createSpyObj('sprite', ['draw']);
         background_sprite = jasmine.createSpyObj('sprite', ['draw']);
         mario = new Entity2d(position, mario_sprite);
-        background = new Entity2d(position, background_sprite);
-        spyBackground = jasmine.createSpyObj('entity2d', ['moveRight']);
-        spyBackground2 = jasmine.createSpyObj('entity2d', ['moveRight']);
+        background = new Background(position, background_sprite);
+        spyBackground = jasmine.createSpyObj('background', ['moveRight']);
+        spyBackground2 = jasmine.createSpyObj('background', ['moveRight']);
         spyBackground.sprite = background_sprite;
         spyBackground.position = position;
         spyBackground2.sprite = background_sprite;
@@ -59,7 +59,7 @@ describe("Entity2d", function () {
     });
 
    it("should move a background to the far right when it is out view", function() {
-        background = new Entity2d(new Vector2d(-795, 0),background_sprite);
+        background = new Background(new Vector2d(-795, 0), background_sprite);
         background.moveLeft();
         expect(background.getX()).toBeGreaterThan(799);
     });
@@ -73,7 +73,7 @@ describe("Entity2d", function () {
    });
 
    it("should prevent mario from going off screen when he goes left", function(){
-        mario = new Entity2d(new Vector2d(1, 200), mario_sprite);
+        mario = new Entity2d(new Vector2d(5, 200), mario_sprite);
         mario.moveLeft();
         expect(mario.getX()).toBeGreaterThan(0);    
    });

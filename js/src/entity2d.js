@@ -19,7 +19,8 @@ Entity2d.prototype.getY = function() {
 };
 
 Entity2d.prototype.moveLeft = function() {
-    return this.position.getX() <= -795 ? this.position.addX(1595) : this.position.addX(-this.step);
+    return this.position.getX() <= 5 ? this.position.addX(this.step) : this.position.addX(-this.step);
+    //return this.position.addX(-this.step);
 };
 
 Entity2d.prototype.moveRight = function() {

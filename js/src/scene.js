@@ -6,7 +6,7 @@ function Scene(background, mario){
 }
 
 Scene.prototype.drawScene = function (){
-    forEach(this.background, Entity2d.prototype.draw);
+    forEach(this.background, Background.prototype.draw);
     this.mario.draw();
 };
 
@@ -23,7 +23,7 @@ Scene.prototype.keypress = function (event) {
             this.mario.moveUp();
             break;
         case  rightArrow:
-            forEach(this.background, Entity2d.prototype.moveLeft);
+            forEach(this.background, Background.prototype.moveLeft);
             break;
         case  downArrow:
             this.mario.moveDown();
