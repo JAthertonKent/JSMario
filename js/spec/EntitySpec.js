@@ -1,6 +1,7 @@
 describe("Entity2d", function () {
     var background;
     var mario;
+    var spyMario;
     var position;
     var mario_sprite;
     var background_sprite;
@@ -10,9 +11,10 @@ describe("Entity2d", function () {
 
     beforeEach(function () {
         position = jasmine.createSpyObj('vector2d', ['getX', 'getY', 'addX', 'addY']);
-        mario_sprite = jasmine.createSpyObj('sprite', ['draw']);
+        mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'flipImage']);
         background_sprite = jasmine.createSpyObj('sprite', ['draw']);
         mario = new Actor(position, mario_sprite);
+        spyMario = jasmine.createSpyObj('actor', ['moveLeft', 'moveRight', 'draw']);
         background = new Background(position, background_sprite);
         spyBackground = jasmine.createSpyObj('background', ['moveRight']);
         spyBackground2 = jasmine.createSpyObj('background', ['moveRight']);
@@ -47,7 +49,6 @@ describe("Entity2d", function () {
     });
  
     it("should let mario move to left most side of the scene", function() {
-        spyMario = jasmine.createSpyObj('actor', ['moveLeft', 'draw']);
         scene = new Scene([spyBackground, spyBackground2], spyMario);
         scene.drawScene();
         scene.keypress({which: 37});
@@ -66,6 +67,12 @@ describe("Entity2d", function () {
        scene.drawScene();
        scene.keypress({which: 39});
        expect(mario.getX()).toEqual(10);   
+    });
+
+    it("should flip mario when he walks in the opposite direction", function(){
+        scene.drawScene();
+        scene.keypress({which: 39});
+        expect(mario_sprite.flipImage).toHaveBeenCalled();
     });
 
     describe("Background", function () {
