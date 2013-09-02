@@ -10,11 +10,13 @@ Actor.prototype = new Entity2d();
 
 Actor.prototype.moveLeft = function() {
     this.sprite.flipImage(this.position);
-    return this.position.getX() <= 5 ? this.position.addX(this.step) : this.position.addX(-this.step);
-    //return this.position.addX(-this.step);
+
+    return this.position.getX() <= 5 ? this.position.addX(0) : this.position.addX(-this.step);
 };
 
 Actor.prototype.moveRight = function() {
+    //TODO: remove reference to game.scene.background, mario should tell the
+    //backgrounds to start moving
     if (this.position.getX() > 400) {
         forEach(game.scene.background, Background.prototype.moveLeft);
     } else { 
