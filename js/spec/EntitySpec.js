@@ -55,6 +55,13 @@ describe("Entity2d", function () {
             scene.keypress({which: 37});
             expect(mario_sprite.flipImage).toHaveBeenCalled();
         });
+        
+        it("should flip when walks right", function(){
+            scene.drawScene();
+            scene.keypress({which: 39});
+            expect(mario_sprite.flipImage).toHaveBeenCalled();
+        });
+
     });
     
   
