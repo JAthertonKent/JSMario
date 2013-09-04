@@ -4,6 +4,9 @@ function Actor(position, sprite) {
     this.position = position;
     this.sprite = sprite;
     this.step = 5;
+    this.velocity = 0;
+    this.acceleration = .15;
+    this.groundY = 400;
 }
 
 Actor.prototype = new Entity2d();
@@ -31,8 +34,24 @@ Actor.prototype.moveUp = function() {
     return this.position.getY() < bound ? this.position.addY(-this.position.getY()) : this.position.addY(-this.step);
 };
 
-Actor.prototype.moveDown = function() {
-    var bound = 400;
-    return this.position.getY() > bound ? this.position.addY(-(this.position.getY()-bound)) : this.position.addY(this.step);
+Actor.prototype.moveDown = function(step) {
+    step = step || this.step;
+    return this.position.getY() > this.groundY ? this.position.addY(-(this.position.getY() - this.groundY)) : this.position.addY(step);
 };
 
+Actor.prototype.fall = function() {
+    if (this.position.getY() > this.groundY) {
+        this.velocity = 0;
+    } else {
+        this.velocity += this.acceleration;
+    }
+}
+
+Actor.prototype.getVelocity = function() {
+    return this.velocity;
+};
+
+Actor.prototype.nextFrame = function() {
+    this.moveDown(this.velocity);
+    this.fall();
+};

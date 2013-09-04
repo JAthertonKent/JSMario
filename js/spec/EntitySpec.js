@@ -52,6 +52,7 @@ describe("Entity2d", function () {
     
         it("should flip when walks left", function(){
             scene.drawScene();
+
             scene.keypress({which: 37});
             expect(mario_sprite.flipImage).toHaveBeenCalled();
         });
@@ -62,6 +63,31 @@ describe("Entity2d", function () {
             expect(mario_sprite.flipImage).toHaveBeenCalled();
         });
 
+        it("should start with no velocity", function () {
+            mario = new Actor(new Vector2d(200, 100), mario_sprite);
+            expect(mario.getVelocity()).toEqual(0);
+        });
+
+        it("should increase velocity by acceleration in the next frame", function() {
+            mario = new Actor(new Vector2d(200, 100), mario_sprite);
+            mario.acceleration = 1;
+            mario.nextFrame();
+            expect(mario.getVelocity()).toEqual(1);
+        });
+
+        it("should increase y by velocity in the next frame", function() {
+            mario = new Actor(new Vector2d(200, 100), mario_sprite);
+            mario.velocity = 25;
+            mario.nextFrame();
+            expect(mario.getY()).toEqual(125);
+        });
+
+        it("should reset the velocity to zero when at ground", function() {
+            mario = new Actor(new Vector2d(0, 400), mario_sprite);
+            mario.velocity = 100;
+            mario.nextFrame();
+            expect(mario.getVelocity()).toEqual(0);
+        });
     });
     
   

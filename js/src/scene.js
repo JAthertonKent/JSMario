@@ -8,6 +8,7 @@ function Scene(background, mario){
 Scene.prototype.drawScene = function (){
     forEach(this.background, Background.prototype.draw);
     this.mario.draw();
+    this.mario.nextFrame();
 };
 
 Scene.prototype.keypress = function (event) {

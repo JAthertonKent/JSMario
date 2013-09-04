@@ -1,7 +1,7 @@
 describe("Scene", function() {
 
     beforeEach(function () {
-        spyMario = jasmine.createSpyObj('actor', ['moveLeft', 'moveRight', 'draw']);
+        spyMario = jasmine.createSpyObj('actor', ['moveLeft', 'moveRight', 'draw', 'nextFrame']);
         spyBackground = jasmine.createSpyObj('background', ['moveRight']);
         spyBackground2 = jasmine.createSpyObj('background', ['moveRight']);
         background_sprite = jasmine.createSpyObj('sprite', ['draw']);
@@ -28,4 +28,9 @@ describe("Scene", function() {
         expect(mario.getX()).toEqual(10);   
     });
 
+    it("should move mario according to gravity", function() {
+        scene = new Scene([], spyMario);
+        scene.drawScene();
+        expect(spyMario.nextFrame).toHaveBeenCalled();
+    });
 });
