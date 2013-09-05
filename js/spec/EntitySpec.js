@@ -64,27 +64,7 @@ describe("Entity2d", function () {
             expect(mario.velocity).toEqual(0);
         });
 
-        it("should increase velocity by acceleration in the next frame", function() {
-            mario = new Actor(new Vector2d(200, 100), mario_sprite);
-            mario.acceleration = 1;
-            gravity(mario);
-            expect(mario.velocity).toEqual(1);
-        });
-
-        it("should increase y by velocity after gravity is appied", function() {
-            mario = new Actor(new Vector2d(200, 100), mario_sprite);
-            mario.velocity = 25;
-            gravity(mario);
-            expect(mario.getY()).toEqual(125);
-        });
-
-        it("should reset the velocity to zero when at ground", function() {
-            mario = new Actor(new Vector2d(0, 400), mario_sprite);
-            mario.velocity = 100;
-            gravity(mario);
-            expect(mario.velocity).toEqual(0);
-        });
-    });
+});
     
   
     describe("Background", function () {
