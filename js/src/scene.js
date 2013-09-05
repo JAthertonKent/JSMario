@@ -6,7 +6,7 @@ function Scene(background, mario){
 }
 
 Scene.prototype.drawScene = function (){
-    forEach(this.background, Background.prototype.draw);
+    this.background.draw();
     this.mario.draw();
     this.mario.nextFrame();
 };
@@ -20,10 +20,4 @@ Scene.prototype.keypress = function (event) {
     };
 
     keyMap[event.which].apply(this.mario);
-};
-
-var forEach = function(array, functionCall) {
-    for (var i = 0; i < array.length; i++) {
-        functionCall.apply(array[i]);
-    };
 };

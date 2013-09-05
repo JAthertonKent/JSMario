@@ -6,23 +6,19 @@ describe("Entity2d", function () {
     var mario_sprite;
     var background_sprite;
     var spyBackground;
-    var spyBackground2;
     var scene;
 
     beforeEach(function () {
         position = jasmine.createSpyObj('vector2d', ['getX', 'getY', 'addX', 'addY']);
         mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'flipImage']);
-        background_sprite = jasmine.createSpyObj('sprite', ['draw']);
         mario = new Actor(position, mario_sprite);
         spyMario = jasmine.createSpyObj('actor', ['moveLeft', 'moveRight', 'draw']);
+        background_sprite = jasmine.createSpyObj('sprite', ['draw']);
         background = new Background(position, background_sprite);
-        spyBackground = jasmine.createSpyObj('background', ['moveRight']);
-        spyBackground2 = jasmine.createSpyObj('background', ['moveRight']);
+        spyBackground = jasmine.createSpyObj('background', ['moveRight', 'draw']);
         spyBackground.sprite = background_sprite;
         spyBackground.position = position;
-        spyBackground2.sprite = background_sprite;
-        spyBackground2.position = position;
-        scene = new Scene([spyBackground, spyBackground2], mario);
+        scene = new Scene(spyBackground, mario);
     });
 
     describe("Actor", function () {
@@ -106,11 +102,12 @@ describe("Entity2d", function () {
         });
 
         it("should scroll two images at once", function() {
-            scene = new Scene([spyBackground, spyBackground2], mario);
-            scene.drawScene();
-            scene.keypress({which: 39});
-            expect(spyBackground.position.addX).toHaveBeenCalled();
-            expect(spyBackground2.position.addX).toHaveBeenCalled();
+            position = new Vector2d(0, 0);
+            background = new Background(new Vector2d(0, 0), background_sprite);
+            background.draw();
+            expect(background_sprite.draw).toHaveBeenCalledWith(position);
+            position.addX(800); //length of background_sprite
+            expect(background_sprite.draw).toHaveBeenCalledWith(position);
         });
 
     });

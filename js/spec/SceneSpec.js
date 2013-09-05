@@ -1,19 +1,19 @@
 describe("Scene", function() {
+    var spyMario;
+    var mario_sprite;
+    var spyBackground;
+    var scene;
 
     beforeEach(function () {
-        spyMario = jasmine.createSpyObj('actor', ['moveLeft', 'moveRight', 'draw', 'nextFrame']);
-        spyBackground = jasmine.createSpyObj('background', ['moveRight']);
-        spyBackground2 = jasmine.createSpyObj('background', ['moveRight']);
-        background_sprite = jasmine.createSpyObj('sprite', ['draw']);
         mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'flipImage']);
-        spyBackground.sprite = background_sprite;
-        spyBackground2.sprite = background_sprite;
+        mario = new Actor(new Vector2d(5, 200), mario_sprite);
+        spyBackground = jasmine.createSpyObj('background', ['draw']);
+
+        scene = new Scene(spyBackground, mario);
     });
 
 
     it("should prevent the actor from escaping by the left most side", function() {
-        mario = new Actor(new Vector2d(5, 200), mario_sprite);
-        scene = new Scene([spyBackground, spyBackground2], mario);
         scene.drawScene();
         scene.keypress({which: 37});
         expect(mario.getX()).toEqual(5);   
@@ -21,16 +21,16 @@ describe("Scene", function() {
     });
 
     it("should let the actor walk around half the scene", function() {
-        mario = new Actor(new Vector2d(5, 200), mario_sprite);
-        scene = new Scene([spyBackground, spyBackground2], mario);
         scene.drawScene();
         scene.keypress({which: 39});
         expect(mario.getX()).toEqual(10);   
     });
 
     it("should move mario according to gravity", function() {
-        scene = new Scene([], spyMario);
+        spyMario = jasmine.createSpyObj('actor', ['moveLeft', 'moveRight', 'draw', 'nextFrame']);
+        scene = new Scene(spyBackground, spyMario);
         scene.drawScene();
         expect(spyMario.nextFrame).toHaveBeenCalled();
     });
 });
+

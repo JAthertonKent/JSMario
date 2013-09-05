@@ -23,7 +23,7 @@ Actor.prototype.moveRight = function() {
     //TODO: remove reference to game.scene.background, mario should tell the
     //backgrounds to start moving
     if (this.position.getX() > 400) {
-        forEach(game.scene.background, Background.prototype.moveLeft);
+        game.scene.background.moveLeft();
     } else { 
         return this.position.addX(this.step);
     }
@@ -32,6 +32,7 @@ Actor.prototype.moveRight = function() {
 Actor.prototype.moveUp = function() {
     var bound = 0;
     return this.position.getY() < bound ? this.position.addY(-this.position.getY()) : this.position.addY(-this.step);
+    this.velocity = -5;
 };
 
 Actor.prototype.moveDown = function(step) {
@@ -39,7 +40,7 @@ Actor.prototype.moveDown = function(step) {
     return this.position.getY() > this.groundY ? this.position.addY(-(this.position.getY() - this.groundY)) : this.position.addY(step);
 };
 
-Actor.prototype.fall = function() {
+Actor.prototype.fallIfNotGrounded = function() {
     if (this.position.getY() > this.groundY) {
         this.velocity = 0;
     } else {
@@ -53,5 +54,5 @@ Actor.prototype.getVelocity = function() {
 
 Actor.prototype.nextFrame = function() {
     this.moveDown(this.velocity);
-    this.fall();
+    this.fallIfNotGrounded();
 };
