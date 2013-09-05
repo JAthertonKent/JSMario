@@ -17,7 +17,6 @@ describe("Scene", function() {
         scene.drawScene();
         scene.keypress({which: 37});
         expect(mario.getX()).toEqual(5);   
-
     });
 
     it("should let the actor walk around half the scene", function() {
@@ -27,10 +26,10 @@ describe("Scene", function() {
     });
 
     it("should move mario according to gravity", function() {
-        spyMario = jasmine.createSpyObj('actor', ['moveLeft', 'moveRight', 'draw', 'nextFrame']);
-        scene = new Scene(spyBackground, spyMario);
+        spyOn(window, 'gravity');
+        scene = new Scene(spyBackground, mario);
         scene.drawScene();
-        expect(spyMario.nextFrame).toHaveBeenCalled();
+        expect(gravity).toHaveBeenCalledWith(mario);
     });
 });
 

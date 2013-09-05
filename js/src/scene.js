@@ -8,7 +8,8 @@ function Scene(background, mario){
 Scene.prototype.drawScene = function (){
     this.background.draw();
     this.mario.draw();
-    this.mario.nextFrame();
+    
+    gravity(this.mario);
 };
 
 Scene.prototype.keypress = function (event) {
@@ -21,3 +22,4 @@ Scene.prototype.keypress = function (event) {
 
     keyMap[event.which].apply(this.mario);
 };
+
