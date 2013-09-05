@@ -37,15 +37,6 @@ describe("Entity2d", function () {
             expect(mario.getY()).toBeLessThan(401);
         });
 
-        it("should not get too high", function(){
-            mario = new Actor(new Vector2d(200, 100), mario_sprite);
-            mario.draw();
-            for(var i = 0; i < 100; i++){
-                mario.moveUp();
-            }
-            expect(mario.getY()).toBeGreaterThan(-1);
-        });
-    
         it("should flip when walks left", function(){
             scene.drawScene();
 
@@ -62,6 +53,12 @@ describe("Entity2d", function () {
         it("should start with no velocity", function () {
             mario = new Actor(new Vector2d(200, 100), mario_sprite);
             expect(mario.velocity).toEqual(0);
+        });
+
+        it("should jump", function () {
+            mario = new Actor(new Vector2d(200, 100), mario_sprite);
+            mario.moveUp();
+            expect(mario.velocity).toEqual(-4);
         });
 
 });

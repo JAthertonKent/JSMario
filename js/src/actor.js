@@ -31,7 +31,8 @@ Actor.prototype.moveRight = function() {
 
 Actor.prototype.moveUp = function() {
     var bound = 0;
-    return this.position.getY() < bound ? this.position.addY(-this.position.getY()) : this.position.addY(-this.step);
+    this.velocity = -4;
+    return this.position.addY(-this.step);
 };
 
 Actor.prototype.moveDown = function(step) {
