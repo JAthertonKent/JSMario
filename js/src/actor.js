@@ -14,7 +14,7 @@ Actor.prototype = new Entity2d();
 Actor.prototype.moveLeft = function() {
     this.sprite.flipImage(this.position, 'img/leftMario.gif');
 
-    this.pushBack;
+    this.pushBack();
 };
 
 Actor.prototype.moveRight = function() {
