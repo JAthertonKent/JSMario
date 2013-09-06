@@ -14,19 +14,13 @@ Actor.prototype = new Entity2d();
 Actor.prototype.moveLeft = function() {
     this.sprite.flipImage(this.position, 'img/leftMario.gif');
 
-    return this.position.getX() <= 5 ? this.position.addX(0) : this.position.addX(-this.step);
+    return this.position.getX() <= this.step ? this.position.addX(0) : this.position.addX(-this.step);
 };
 
 Actor.prototype.moveRight = function() {
     this.sprite.flipImage(this.position, 'img/mario.gif');
 
-    //TODO: remove reference to game.scene.background, mario shouldnt tell the
-    //backgrounds to start moving
-    if (this.position.getX() > 400) {
-        game.scene.background.moveLeft();
-    } else { 
-        return this.position.addX(this.step);
-    }
+    return this.position.addX(this.step);
 };
 
 Actor.prototype.moveUp = function() {
@@ -38,5 +32,9 @@ Actor.prototype.moveUp = function() {
 Actor.prototype.moveDown = function(step) {
     step = step || this.step;
     return this.position.getY() > this.groundY ? this.position.addY(-(this.position.getY() - this.groundY)) : this.position.addY(step);
+};
+
+Actor.prototype.pushBack = function() {
+    this.position.addX(-this.step)
 };
 

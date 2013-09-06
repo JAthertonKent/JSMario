@@ -7,7 +7,7 @@ describe("Scene", function() {
     beforeEach(function () {
         mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'flipImage']);
         mario = new Actor(new Vector2d(5, 200), mario_sprite);
-        spyBackground = jasmine.createSpyObj('background', ['draw']);
+        spyBackground = jasmine.createSpyObj('background', ['draw', 'moveLeft']);
 
         scene = new Scene(spyBackground, mario);
     });
@@ -30,6 +30,20 @@ describe("Scene", function() {
         scene = new Scene(spyBackground, mario);
         scene.drawScene();
         expect(gravity).toHaveBeenCalledWith(mario);
+    });
+
+    it("should check actor's position and tell background to scroll if in middle", function() {
+        mario = new Actor(new Vector2d(401, 0), mario_sprite);
+        scene = new Scene(spyBackground, mario);
+        scene.drawScene();
+        expect(spyBackground.moveLeft).toHaveBeenCalled();
+    });
+
+    it("should push actor back if background scrolls", function() {
+        mario = new Actor(new Vector2d(401, 0), mario_sprite);
+        scene = new Scene(spyBackground, mario);
+        scene.drawScene();
+        expect(mario.getX()).toBeLessThan(400);
     });
 });
 

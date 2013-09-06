@@ -6,6 +6,10 @@ function Scene(background, mario){
 }
 
 Scene.prototype.drawScene = function (){
+    if (this.mario.getX() > 400) {
+        this.background.moveLeft();
+        this.mario.pushBack();
+    }
     this.background.draw();
     this.mario.draw();
     
