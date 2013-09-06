@@ -14,7 +14,7 @@ Actor.prototype = new Entity2d();
 Actor.prototype.moveLeft = function() {
     this.sprite.flipImage(this.position, 'img/leftMario.gif');
 
-    return this.position.getX() <= this.step ? this.position.addX(0) : this.position.addX(-this.step);
+    this.pushBack;
 };
 
 Actor.prototype.moveRight = function() {
@@ -35,6 +35,6 @@ Actor.prototype.moveDown = function(step) {
 };
 
 Actor.prototype.pushBack = function() {
-    this.position.addX(-this.step)
+    return this.position.getX() <= this.step ? this.position.addX(0) : this.position.addX(-this.step);
 };
 
