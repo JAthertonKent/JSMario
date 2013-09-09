@@ -18,7 +18,10 @@ describe("Entity2d", function () {
         spyBackground = jasmine.createSpyObj('background', ['moveRight', 'draw']);
         spyBackground.sprite = background_sprite;
         spyBackground.position = position;
-        scene = new Scene(spyBackground, mario);
+        var ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
+        var ground = new Obstacle(position, ground_sprite);
+
+        scene = new Scene(spyBackground, mario, ground);
     });
 
     describe("Actor", function () {
@@ -85,6 +88,17 @@ describe("Entity2d", function () {
             expect(background_sprite.draw).toHaveBeenCalledWith(position);
             position.addX(800); //length of background_sprite
             expect(background_sprite.draw).toHaveBeenCalledWith(position);
+        });
+
+    });
+
+    describe("Obstacle", function() {
+        
+        it("should draw an array of brick sprites", function() {
+            var ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
+            var ground = new Obstacle(position, ground_sprite);
+            ground.draw();
+            expect(ground_sprite.draw.callCount).toBeGreaterThan(1);
         });
 
     });

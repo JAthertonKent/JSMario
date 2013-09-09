@@ -1,8 +1,9 @@
 "use strict";
 
-function Scene(background, mario){
+function Scene(background, mario, ground){
     this.background = background;
     this.mario = mario;
+    this.ground = ground;
 }
 
 Scene.prototype.drawScene = function (){
@@ -12,6 +13,7 @@ Scene.prototype.drawScene = function (){
     }
     this.background.draw();
     this.mario.draw();
+    this.ground.draw();
     
     gravity(this.mario);
 };
