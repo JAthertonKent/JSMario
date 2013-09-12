@@ -7,16 +7,21 @@ function Scene(background, mario, ground){
 }
 
 Scene.prototype.drawScene = function (){
-    if (this.mario.getX() > 400) {
-        this.background.moveLeft();
-        this.mario.pushBack();
-    }
+    this.keepFromFarRight(); 
+
     this.background.draw();
     this.mario.draw();
     this.ground.draw();
     
     gravity(this.mario);
 };
+
+Scene.prototype.keepFromFarRight = function (){
+    if (this.mario.getX() > 400) {
+        this.background.moveLeft();
+        this.mario.pushBack();
+    }
+}
 
 Scene.prototype.keypress = function (event) {
     var keyMap = {
