@@ -9,7 +9,7 @@ describe("Scene", function() {
         mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'flipImage']);
         mario = new Actor(new Vector2d(5, 200), mario_sprite);
         spyBackground = jasmine.createSpyObj('background', ['draw', 'moveLeft']);
-        ground = jasmine.createSpyObj('obstacle', ['draw']);
+        ground = jasmine.createSpyObj('obstacle', ['draw', 'moveLeft']);
 
         scene = new Scene(spyBackground, mario, ground);
     });

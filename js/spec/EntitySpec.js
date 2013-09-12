@@ -82,33 +82,33 @@ describe("Entity2d", function () {
         });
 
         it("should scroll two images at once", function() {
-            position = new Vector2d(0, 0);
             background = new Background(new Vector2d(0, 0), background_sprite);
             background.draw();
-            expect(background_sprite.draw).toHaveBeenCalledWith(position);
-            position.addX(800); //length of background_sprite
-            expect(background_sprite.draw).toHaveBeenCalledWith(position);
+            expect(background_sprite.draw.callCount).toBe(2);
         });
 
-        describe("Ground", function() {
-            
-            it("should draw an array of brick sprites", function() {
-                var ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
-                var ground = new Ground(position, ground_sprite);
-                ground.draw();
-                expect(ground_sprite.draw.callCount).toBeGreaterThan(1);
-            });
+    });
 
-            it("should scroll with background", function() {
-                var ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
-                var ground = new Ground(position, ground_sprite);
-                ground.draw();
-                expect(ground_sprite.draw.callCount).toBeGreaterThan(1);
-            });
+    describe("Ground", function() {
+        
+        it("should draw an array of brick sprites", function() {
+            var ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
+            var ground = new Ground(position, ground_sprite);
+            ground.draw();
+            expect(ground_sprite.draw.callCount).toBeGreaterThan(1);
+        });
+
+        it("should scroll brick array", function() {
+            var ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
+            var ground = new Ground(position, ground_sprite);
+            var expected = ground.positions[0].getX();
+            var expectedTwo = ground.positions[10].getX();
+            ground.moveLeft();
+            expect(ground.positions[0].getX()).toEqual(expected-5);
+            expect(ground.positions[10].getX()).toEqual(expectedTwo-5);
 
         });
 
     });
 
-   
 });

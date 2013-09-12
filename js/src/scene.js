@@ -19,6 +19,7 @@ Scene.prototype.drawScene = function (){
 Scene.prototype.keepFromFarRight = function (){
     if (this.mario.getX() > 400) {
         this.background.moveLeft();
+        this.ground.moveLeft();
         this.mario.pushBack();
     }
 }
