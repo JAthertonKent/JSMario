@@ -19,7 +19,7 @@ describe("Entity2d", function () {
         spyBackground.sprite = background_sprite;
         spyBackground.position = position;
         var ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
-        var ground = new Obstacle(position, ground_sprite);
+        var ground = new Ground(position, ground_sprite);
 
         scene = new Scene(spyBackground, mario, ground);
     });
@@ -90,17 +90,25 @@ describe("Entity2d", function () {
             expect(background_sprite.draw).toHaveBeenCalledWith(position);
         });
 
-    });
+        describe("Ground", function() {
+            
+            it("should draw an array of brick sprites", function() {
+                var ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
+                var ground = new Ground(position, ground_sprite);
+                ground.draw();
+                expect(ground_sprite.draw.callCount).toBeGreaterThan(1);
+            });
 
-    describe("Obstacle", function() {
-        
-        it("should draw an array of brick sprites", function() {
-            var ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
-            var ground = new Obstacle(position, ground_sprite);
-            ground.draw();
-            expect(ground_sprite.draw.callCount).toBeGreaterThan(1);
+            it("should scroll with background", function() {
+                var ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
+                var ground = new Ground(position, ground_sprite);
+                ground.draw();
+                expect(ground_sprite.draw.callCount).toBeGreaterThan(1);
+            });
+
         });
 
     });
 
+   
 });
