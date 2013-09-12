@@ -19,18 +19,18 @@ Entity2d.prototype.getY = function() {
 };
 
 Entity2d.prototype.moveLeft = function() {
-    return this.position.addX(-this.step);
+    this.position.addX(-this.step);
 };
 
 Entity2d.prototype.moveRight = function() {
-    return this.position.addX(this.step);
+    this.position.addX(this.step);
 };
 
 Entity2d.prototype.moveUp = function() {
-    return this.position.addY(-this.step);
+    this.position.addY(-this.step);
 };
 
 Entity2d.prototype.moveDown = function() {
-    return this.position.addY(this.step);
+    this.position.addY(this.step);
 };
 

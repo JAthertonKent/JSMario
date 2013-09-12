@@ -13,3 +13,9 @@ Ground.prototype = new Entity2d();
 Ground.prototype.draw = function() {
     _.each(this.positions, function(it){ this.sprite.draw(it) }, this);
 }
+
+Background.prototype.moveLeft = function() {
+    this.ptwo.getX() <= -795 ? this.ptwo.addX(1595) : this.ptwo.addX(-this.step);
+    this.position.getX() <= -795 ? this.position.addX(1595) : this.position.addX(-this.step);
+};
+

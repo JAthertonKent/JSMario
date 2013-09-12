@@ -16,6 +16,6 @@ Background.prototype.draw = function() {
 
 Background.prototype.moveLeft = function() {
     this.ptwo.getX() <= -795 ? this.ptwo.addX(1595) : this.ptwo.addX(-this.step);
-    return this.position.getX() <= -795 ? this.position.addX(1595) : this.position.addX(-this.step);
+    this.position.getX() <= -795 ? this.position.addX(1595) : this.position.addX(-this.step);
 };
 
