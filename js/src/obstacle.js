@@ -4,17 +4,12 @@ function Obstacle(position, sprite) {
     this.position = position;
     this.sprite = sprite;
     this.positions = new Array(); 
-    
-    this.positions[0] = new Vector2d(0 , 450);
-    for(var i = 1; i < 60; i++){
-        this.positions[i] = new Vector2d(this.positions[i-1].getX() + 24 , 450);
-    }
+
+    _.each(_.range(35), function(x){ this.push(new Vector2d(x*24 , 450)) }, this.positions);    
 }
 
 Obstacle.prototype = new Entity2d();
 
 Obstacle.prototype.draw = function() {
-    for(var i = 0; i < this.positions.length; i++){
-        this.sprite.draw(this.positions[i]);
-    }
+    _.each(this.positions, function(it){ this.sprite.draw(it) }, this);
 }
