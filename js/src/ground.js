@@ -8,7 +8,7 @@ function Ground(position, sprite) {
     _.each(_.range(35), function(x){ this.push(new Vector2d(x*24 , 450)) }, this.positions);    
 }
 
-Ground.prototype = new Background();
+Ground.prototype = new Entity2d();
 
 Ground.prototype.draw = function() {
     _.each(this.positions, function(it){ this.sprite.draw(it) }, this);
