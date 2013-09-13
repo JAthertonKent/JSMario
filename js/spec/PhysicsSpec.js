@@ -7,7 +7,7 @@ describe("Gravity", function() {
         mario_sprite = jasmine.createSpyObj('sprite', ['draw']);
     });
 
-    it("should effect mario", function() {
+    it("should affect mario", function() {
         mario = new Actor(new Vector2d(5, 200), mario_sprite);
         mario.acceleration = 4;
         gravity(mario);
