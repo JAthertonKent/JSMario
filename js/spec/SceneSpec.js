@@ -1,17 +1,16 @@
 describe("Scene", function() {
-    var spyMario;
     var mario_sprite;
-    var spyBackground;
+    var mario;
+    var background;
     var scene;
     var ground;
 
     beforeEach(function () {
         mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'switchImage']);
         mario = new Actor(new Vector2d(5, 200), mario_sprite);
-        spyBackground = jasmine.createSpyObj('background', ['draw', 'moveLeft']);
+        background = jasmine.createSpyObj('background', ['draw', 'moveLeft']);
         ground = jasmine.createSpyObj('obstacle', ['draw', 'moveLeft']);
-
-        scene = new Scene(spyBackground, mario, ground);
+        scene = new Scene(background, mario, ground);
     });
 
 
@@ -29,27 +28,23 @@ describe("Scene", function() {
 
     it("should apply gravity", function() {
         spyOn(window, 'gravity');
-        scene = new Scene(spyBackground, mario, ground);
         scene.drawScene();
         expect(gravity).toHaveBeenCalledWith(mario);
     });
 
     it("should check actor's position and tell background to scroll if in middle", function() {
-        mario = new Actor(new Vector2d(401, 0), mario_sprite);
-        scene = new Scene(spyBackground, mario, ground);
+        scene = new Scene(background, new Actor(new Vector2d(401, 0), mario_sprite), ground);
         scene.drawScene();
-        expect(spyBackground.moveLeft).toHaveBeenCalled();
+        expect(background.moveLeft).toHaveBeenCalled();
     });
 
     it("should push actor back if background scrolls", function() {
-        mario = new Actor(new Vector2d(401, 0), mario_sprite);
-        scene = new Scene(spyBackground, mario, ground);
+        scene = new Scene(background, new Actor(new Vector2d(401, 0), mario_sprite), ground);
         scene.drawScene();
         expect(mario.getX()).toBeLessThan(400);
     });
     
     it("should draw the ground", function() {
-        scene = new Scene(spyBackground, mario, ground);
         scene.drawScene();
         expect(ground.draw).toHaveBeenCalled();
     });
