@@ -12,13 +12,13 @@ function Actor(position, sprite) {
 Actor.prototype = new Entity2d();
 
 Actor.prototype.moveLeft = function() {
-    this.sprite.flipImage(this.position, 'img/leftMario.gif');
+    this.sprite.switchImage(this.position, 'img/leftMario.gif');
 
     this.pushBack();
 };
 
 Actor.prototype.moveRight = function() {
-    this.sprite.flipImage(this.position, 'img/mario.gif');
+    this.sprite.switchImage(this.position, 'img/mario.gif');
 
     this.position.addX(this.step);
 };

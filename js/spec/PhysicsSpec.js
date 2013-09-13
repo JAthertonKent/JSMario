@@ -4,7 +4,7 @@ describe("Gravity", function() {
     var mario;
 
     beforeEach(function () {
-        mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'flipImage']);
+        mario_sprite = jasmine.createSpyObj('sprite', ['draw']);
     });
 
     it("should effect mario", function() {

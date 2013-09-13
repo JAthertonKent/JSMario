@@ -6,7 +6,7 @@ describe("Scene", function() {
     var ground;
 
     beforeEach(function () {
-        mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'flipImage']);
+        mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'switchImage']);
         mario = new Actor(new Vector2d(5, 200), mario_sprite);
         spyBackground = jasmine.createSpyObj('background', ['draw', 'moveLeft']);
         ground = jasmine.createSpyObj('obstacle', ['draw', 'moveLeft']);

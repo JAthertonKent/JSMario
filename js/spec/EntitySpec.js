@@ -10,7 +10,7 @@ describe("Entity2d", function () {
 
     beforeEach(function () {
         position = jasmine.createSpyObj('vector2d', ['getX', 'getY', 'addX', 'addY']);
-        mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'flipImage']);
+        mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'switchImage']);
         mario = new Actor(position, mario_sprite);
         spyMario = jasmine.createSpyObj('actor', ['moveLeft', 'moveRight', 'draw']);
         background_sprite = jasmine.createSpyObj('sprite', ['draw']);
@@ -44,13 +44,13 @@ describe("Entity2d", function () {
             scene.drawScene();
 
             scene.keypress({which: 37});
-            expect(mario_sprite.flipImage).toHaveBeenCalled();
+            expect(mario_sprite.switchImage).toHaveBeenCalled();
         });
         
         it("should flip when walks right", function(){
             scene.drawScene();
             scene.keypress({which: 39});
-            expect(mario_sprite.flipImage).toHaveBeenCalled();
+            expect(mario_sprite.switchImage).toHaveBeenCalled();
         });
 
         it("should start with no velocity", function () {
