@@ -31,7 +31,8 @@ Actor.prototype.moveUp = function() {
 
 Actor.prototype.moveDown = function(step) {
     step = step || this.step;
-    this.position.getY() > this.groundY ? this.position.addY(-(this.position.getY() - this.groundY)) : this.position.addY(step);
+    //this.position.getY() > this.groundY ? this.position.addY(-(this.position.getY() - this.groundY)) : this.position.addY(step);
+    this.position.addY(step);
 };
 
 Actor.prototype.pushBack = function() {

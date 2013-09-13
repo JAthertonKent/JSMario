@@ -5,7 +5,9 @@ function Ground(position, sprite) {
     this.sprite = sprite;
 
     this.positions = new Array(); 
-    _.each(_.range(70), function(x){ this.push(new Entity2d(new Vector2d(x*24 , 450), sprite)) }, this.positions);    
+    _.each(_.range(position.getX(), 63), function(x){ 
+        this.push(new Tile(new Vector2d(1*(x*24) , position.getY()), sprite))
+    }, this.positions);    
 }
 
 Ground.prototype = new Entity2d();
@@ -19,4 +21,17 @@ Ground.prototype.moveLeft = function() {
     var moveItLeft = function(it){ it.moveLeft() }
     _.each(this.positions, moveItLeft);
 };
- //it.getX() <= -795 ? it.addX(1595) : it.addX(-5) 
+
+
+
+function Tile(position, sprite) {
+    this.position = position;
+    this.sprite = sprite;
+    this.step = 5;
+}
+
+Tile.prototype = new Entity2d();
+
+Tile.prototype.moveLeft = function() {
+    this.position.getX() <= -795 ? this.position.addX(1595) : this.position.addX(-5); 
+};

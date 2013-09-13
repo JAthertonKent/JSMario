@@ -7,14 +7,23 @@ function Scene(background, mario, ground){
 }
 
 Scene.prototype.drawScene = function (){
+    gravity(this.mario);
+
     this.keepFromFarRight(); 
+
+    _.each(this.ground.positions, this.keepOnGround, this);
 
     this.background.draw();
     this.mario.draw();
     this.ground.draw();
-    
-    gravity(this.mario);
 };
+
+Scene.prototype.keepOnGround = function (it){ 
+    if (isCollide(it, this.mario)) {
+        this.mario.placeAt(new Vector2d(this.mario.getX(), it.getY() - this.mario.getHeight()))
+    }
+}
+
 
 Scene.prototype.keepFromFarRight = function (){
     if (this.mario.getX() > 400) {
