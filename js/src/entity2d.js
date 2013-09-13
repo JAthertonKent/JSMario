@@ -18,6 +18,14 @@ Entity2d.prototype.getY = function() {
     return this.position.getY();
 };
 
+Entity2d.prototype.getHeight = function() {
+    return this.sprite.image.height;
+};
+
+Entity2d.prototype.getWidth = function() {
+    return this.sprite.image.width;
+};
+
 Entity2d.prototype.moveLeft = function() {
     this.position.addX(-this.step);
 };
