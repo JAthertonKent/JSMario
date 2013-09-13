@@ -1,31 +1,32 @@
 describe("Entity2d", function () {
-    var background;
-    var mario;
-    var spyMario;
     var position;
-    var mario_sprite;
     var background_sprite;
-    var spyBackground;
-    var scene;
 
     beforeEach(function () {
         position = jasmine.createSpyObj('vector2d', ['getX', 'getY', 'addX', 'addY']);
-        mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'switchImage']);
-        mario = new Actor(position, mario_sprite);
-        spyMario = jasmine.createSpyObj('actor', ['moveLeft', 'moveRight', 'draw']);
         background_sprite = jasmine.createSpyObj('sprite', ['draw']);
-        background = new Background(position, background_sprite);
-        spyBackground = jasmine.createSpyObj('background', ['moveRight', 'draw']);
-        spyBackground.sprite = background_sprite;
-        spyBackground.position = position;
-        var ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
-        var ground = new Ground(position, ground_sprite);
-
-        scene = new Scene(spyBackground, mario, ground);
     });
 
     describe("Actor", function () {
-       
+        var mario_sprite;
+        var mario;
+        var ground_sprite;
+        var ground;
+        var spyBackground;
+        var scene;
+
+        beforeEach(function () {
+            position = jasmine.createSpyObj('vector2d', ['getX', 'getY', 'addX', 'addY']);
+            mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'switchImage']);
+            mario = new Actor(position, mario_sprite); 
+            ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
+            ground = new Ground(position, ground_sprite);
+            spyBackground = jasmine.createSpyObj('background', ['moveRight', 'draw']);
+            spyBackground.sprite = background_sprite;
+            spyBackground.position = position;
+            scene = new Scene(spyBackground, mario, ground);
+        });
+        
         it("should draw its sprite", function () {
             mario.draw();
             expect(mario_sprite.draw).toHaveBeenCalledWith(position);
@@ -63,11 +64,15 @@ describe("Entity2d", function () {
             mario.moveUp();
             expect(mario.velocity).toEqual(-4);
         });
-
 });
     
   
     describe("Background", function () {
+        var background;
+
+        beforeEach(function () {
+            background = new Background(position, background_sprite);
+        });
 
         it("should draw background", function() {
             background = new Background(position, background_sprite);
@@ -90,17 +95,20 @@ describe("Entity2d", function () {
     });
 
     describe("Ground", function() {
+        var ground_sprite;
+        var ground;
+
+        beforeEach(function () {
+            ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
+            ground = new Ground(position, ground_sprite);
+        })
         
         it("should draw an array of brick sprites", function() {
-            var ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
-            var ground = new Ground(position, ground_sprite);
             ground.draw();
             expect(ground_sprite.draw.callCount).toBeGreaterThan(1);
         });
 
         it("should scroll brick array", function() {
-            var ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
-            var ground = new Ground(position, ground_sprite);
             var expected = ground.positions[0].getX();
             var expectedTwo = ground.positions[10].getX();
             ground.moveLeft();
