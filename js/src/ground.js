@@ -11,12 +11,12 @@ function Ground(position, sprite) {
 Ground.prototype = new Entity2d();
 
 Ground.prototype.draw = function() {
-    _.each(this.positions, function(it){ this.sprite.draw(it) }, this);
+    var drawIt = function(it){ this.sprite.draw(it) }
+    _.each(this.positions, drawIt, this);
 }
 
 Ground.prototype.moveLeft = function() {
-    _.each(this.positions, function(it){
-        it.getX() <= -795 ? it.addX(1595) : it.addX(-5);
-    });
+    var moveItLeft = function(it){ it.getX() <= -795 ? it.addX(1595) : it.addX(-5) }
+    _.each(this.positions, moveItLeft);
 };
 
