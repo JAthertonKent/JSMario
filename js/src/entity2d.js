@@ -10,6 +10,10 @@ Entity2d.prototype.draw = function() {
     this.sprite.draw(this.position);
 };
 
+Entity2d.prototype.placeAt = function(position) {
+    this.position = position;
+};
+
 Entity2d.prototype.getX = function() {
     return this.position.getX();
 };

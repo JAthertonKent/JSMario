@@ -35,4 +35,13 @@ describe("Gravity", function() {
         expect(mario.velocity).toEqual(0);
     });
 
+    it("should check if two entities are colliding", function() {
+        a = new Entity2d(new Vector2d(0, 400), mario_sprite);
+        b = new Entity2d(new Vector2d(0, 400), mario_sprite);
+        Entity2d.prototype.getHeight = function () { return 35 };
+        Entity2d.prototype.getWidth = function () { return 35 };
+        expect(isCollide(a, b)).toEqual(true);
+        a.position.addX(100);
+        expect(isCollide(a, b)).toEqual(false);
+    });
 });
