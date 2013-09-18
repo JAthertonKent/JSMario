@@ -1,33 +1,31 @@
 describe("Entity2d", function () {
     var background;
-    var mario;
-    var spyMario;
     var position;
-    var mario_sprite;
     var background_sprite;
-    var spyBackground;
-    var scene;
+    var ground, ground_sprite;
 
     beforeEach(function () {
         Entity2d.prototype.getHeight = function () { return 35 };
         Entity2d.prototype.getWidth = function () { return 35 };
-
         position = jasmine.createSpyObj('vector2d', ['getX', 'getY', 'addX', 'addY']);
-        mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'switchImage']);
-        mario = new Actor(position, mario_sprite);
-        spyMario = jasmine.createSpyObj('actor', ['moveLeft', 'moveRight', 'draw']);
         background_sprite = jasmine.createSpyObj('sprite', ['draw']);
         background = new Background(position, background_sprite);
-        spyBackground = jasmine.createSpyObj('background', ['moveRight', 'draw']);
-        spyBackground.sprite = background_sprite;
-        spyBackground.position = position;
-        var ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
-        var ground = new Ground(new Vector2d(0, 450), ground_sprite);
+        ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
+        ground = new Ground(new Vector2d(0, 450), ground_sprite);
 
-        scene = new Scene(spyBackground, mario, ground);
+        
     });
 
     describe("Actor", function () {
+        var mario, mario_sprite, scene, spyBackground;
+        beforeEach(function () {
+            mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'switchImage']);
+            mario = new Actor(position, mario_sprite);
+            spyBackground = jasmine.createSpyObj('background', ['moveRight', 'draw']);
+            spyBackground.sprite = background_sprite;
+            spyBackground.position = position;
+            scene = new Scene(spyBackground, mario, ground);
+        });
        
         it("should draw its sprite", function () {
             mario.draw();
