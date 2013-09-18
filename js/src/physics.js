@@ -15,13 +15,17 @@ Physics.prototype.applyEffects = function() {
 
 Physics.prototype.keepOnGround = function (it){
     if (isCollide(it, this.mobileEntity)) {
-        this.mobileEntity.placeAt(new Vector2d(this.mobileEntity.getX(), it.getY() - this.mobileEntity.getHeight()));
+        placeOnTop(it, this.mobileEntity);
         this.mobileEntity.velocity = 0;
     }
 }
 
 Physics.prototype.increaseVelocity = function (mobileEntity) {
     mobileEntity.velocity += mobileEntity.acceleration;
+}
+
+function placeOnTop(base, entity) {
+    entity.placeAt(new Vector2d(entity.getX(), base.getY() - entity.getHeight()));
 }
 
 function isCollide(a, b) {
