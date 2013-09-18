@@ -54,11 +54,6 @@ describe("Entity2d", function () {
             expect(mario_sprite.switchImage).toHaveBeenCalled();
         });
 
-        it("should start with no velocity", function () {
-            mario = new Actor(new Vector2d(200, 100), mario_sprite);
-            expect(mario.velocity).toEqual(0);
-        });
-
         it("should jump", function () {
             mario = new Actor(new Vector2d(200, 100), mario_sprite);
             mario.moveUp();

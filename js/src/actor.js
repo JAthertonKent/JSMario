@@ -4,8 +4,6 @@ function Actor(position, sprite) {
     this.position = position;
     this.sprite = sprite;
     this.step = 5;
-    this.velocity = 0;
-    this.acceleration = .15;
     this.groundY = 400;
 }
 
@@ -25,13 +23,12 @@ Actor.prototype.moveRight = function() {
 
 Actor.prototype.moveUp = function() {
     var bound = 0;
-    this.velocity = -4;
+    this.velocity = -4; // stinky
     this.position.addY(-this.step);
 };
 
 Actor.prototype.moveDown = function(step) {
     step = step || this.step;
-    //this.position.getY() > this.groundY ? this.position.addY(-(this.position.getY() - this.groundY)) : this.position.addY(step);
     this.position.addY(step);
 };
 

@@ -2,6 +2,8 @@
 
 function Physics(mobileEntity, ground) {
     this.mobileEntity = mobileEntity;
+    this.mobileEntity.velocity = 0;
+    this.mobileEntity.acceleration = .15;
     this.ground = ground;
 }
 

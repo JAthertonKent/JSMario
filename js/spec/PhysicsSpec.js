@@ -38,6 +38,10 @@ describe("Physics", function() {
             gravity.applyEffects();
             expect(mario.velocity).toEqual(0);
         });
+
+        it("should start mobileEntity with zero velocity", function () {
+            expect(mario.velocity).toEqual(0);
+        });
     });
     
     describe("Collisions", function(){
