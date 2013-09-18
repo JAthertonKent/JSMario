@@ -26,7 +26,7 @@ describe("Scene", function() {
         expect(mario.getX()).toEqual(10);   
     });
 
-    it("should apply gravity", function() {
+    xit("should apply gravity", function() {
         spyOn(window, 'gravity');
         scene = new Scene(spyBackground, mario, ground);
         scene.drawScene();

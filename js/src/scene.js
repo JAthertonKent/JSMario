@@ -4,11 +4,11 @@ function Scene(background, mario, ground){
     this.background = background;
     this.mario = mario;
     this.ground = ground;
+    this.physics = new Physics(this.mario);
 }
 
 Scene.prototype.drawScene = function (){
-    gravity(this.mario);
-
+    this.physics.applyEffects();
     this.keepFromFarRight(); 
 
     _.each(this.ground.positions, this.keepOnGround, this);

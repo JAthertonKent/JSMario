@@ -1,9 +1,15 @@
-function gravity(entity) {
-    entity.moveDown(entity.velocity);
-    increaseVelocityIfNotGrounded(entity);
+"use strict";
+
+function Physics(entity) {
+    this.entity = entity;
 }
 
-function increaseVelocityIfNotGrounded(entity) {
+Physics.prototype.applyEffects = function() {
+    this.entity.moveDown(this.entity.velocity);
+    this.increaseVelocityIfNotGrounded(this.entity);
+}
+
+Physics.prototype.increaseVelocityIfNotGrounded = function (entity) {
     if (entity.position.getY() > entity.groundY) {
         entity.velocity = 0;
     } else {
