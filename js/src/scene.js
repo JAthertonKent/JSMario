@@ -16,13 +16,6 @@ Scene.prototype.drawScene = function (){
     this.ground.draw();
 };
 
-Scene.prototype.keepOnGround = function (it){ 
-    if (isCollide(it, this.mario)) {
-        this.mario.placeAt(new Vector2d(this.mario.getX(), it.getY() - this.mario.getHeight()))
-    }
-}
-
-
 Scene.prototype.keepFromFarRight = function (){
     if (this.mario.getX() > 400) {
         this.background.moveLeft();

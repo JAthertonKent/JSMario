@@ -4,7 +4,6 @@ function Actor(position, sprite) {
     this.position = position;
     this.sprite = sprite;
     this.step = 5;
-    this.groundY = 400;
 }
 
 Actor.prototype = new Entity2d();

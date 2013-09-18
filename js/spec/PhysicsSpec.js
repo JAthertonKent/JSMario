@@ -5,9 +5,11 @@ describe("Physics", function() {
     var gravity;
 
     beforeEach(function () {
-        var ground = { position: {} };
+        Entity2d.prototype.getHeight = function () { return 35 };
+        Entity2d.prototype.getWidth = function () { return 35 };
         mario_sprite = jasmine.createSpyObj('sprite', ['draw']);
         mario = new Actor(new Vector2d(5, 200), mario_sprite);
+        var ground = { positions: [new Entity2d(new Vector2d(0, 400), mario_sprite)] };
         gravity = new Physics(mario, ground);
     });
     
@@ -26,13 +28,14 @@ describe("Physics", function() {
         });
 
         it("should increase mario's y by y-velocity ", function() {
-            mario.placeAt(new Vector2d(200, 100));
+            mario.placeAt(new Vector2d(0, 100));
             mario.velocity = 25;
+            mario.acceleration = 0;
             gravity.applyEffects();
             expect(mario.getY()).toEqual(125);
         });
 
-        it("should reset the mario's y-velocity to zero when at ground", function() {
+        it("should reset the mario's y-velocity to zero after colliding", function() {
             mario.placeAt(new Vector2d(0, 400));
             mario.velocity = 100;
             gravity.applyEffects();
@@ -48,8 +51,6 @@ describe("Physics", function() {
         it("should check if two entities are colliding", function() {
             a = new Entity2d(new Vector2d(0, 400), mario_sprite);
             b = new Entity2d(new Vector2d(0, 400), mario_sprite);
-            Entity2d.prototype.getHeight = function () { return 35 };
-            Entity2d.prototype.getWidth = function () { return 35 };
             expect(isCollide(a, b)).toEqual(true);
             a.position.addX(100);
             expect(isCollide(a, b)).toEqual(false);

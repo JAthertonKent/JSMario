@@ -8,24 +8,20 @@ function Physics(mobileEntity, ground) {
 }
 
 Physics.prototype.applyEffects = function() {
-    this.mobileEntity.moveDown(this.mobileEntity.velocity);
-    this.increaseVelocityIfNotGrounded(this.mobileEntity);
-
+    this.increaseVelocity(this.mobileEntity);
     _.each(this.ground.positions, this.keepOnGround, this);
+    this.mobileEntity.moveDown(this.mobileEntity.velocity);
 }
 
-Physics.prototype.keepOnGround = function (it){ 
+Physics.prototype.keepOnGround = function (it){
     if (isCollide(it, this.mobileEntity)) {
-        this.mobileEntity.placeAt(new Vector2d(this.mobileEntity.getX(), it.getY() - this.mobileEntity.getHeight()))
+        this.mobileEntity.placeAt(new Vector2d(this.mobileEntity.getX(), it.getY() - this.mobileEntity.getHeight()));
+        this.mobileEntity.velocity = 0;
     }
 }
 
-Physics.prototype.increaseVelocityIfNotGrounded = function (mobileEntity) {
-    if (mobileEntity.position.getY() > mobileEntity.groundY) {
-        mobileEntity.velocity = 0;
-    } else {
-        mobileEntity.velocity += mobileEntity.acceleration;
-    }
+Physics.prototype.increaseVelocity = function (mobileEntity) {
+    mobileEntity.velocity += mobileEntity.acceleration;
 }
 
 function isCollide(a, b) {
