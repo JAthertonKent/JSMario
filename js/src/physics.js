@@ -10,7 +10,7 @@ function Physics(mobileEntity, ground) {
 Physics.prototype.applyEffects = function() {
     this.increaseVelocity(this.mobileEntity);
     _.each(this.ground.positions, this.keepOnGround, this);
-    this.mobileEntity.moveDown(this.mobileEntity.velocity);
+    this.mobileEntity.pushDown(this.mobileEntity.velocity);
 }
 
 Physics.prototype.keepOnGround = function (it){

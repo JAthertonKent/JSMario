@@ -26,8 +26,11 @@ Actor.prototype.moveUp = function() {
     this.position.addY(-this.step);
 };
 
-Actor.prototype.moveDown = function(step) {
-    step = step || this.step;
+Actor.prototype.moveDown = function() {
+    this.pushDown(this.step);
+};
+
+Actor.prototype.pushDown = function(step) {
     this.position.addY(step);
 };
 
