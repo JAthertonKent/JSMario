@@ -5,9 +5,10 @@ describe("Physics", function() {
     var gravity;
 
     beforeEach(function () {
+        var ground = { position: {} };
         mario_sprite = jasmine.createSpyObj('sprite', ['draw']);
         mario = new Actor(new Vector2d(5, 200), mario_sprite);
-        gravity = new Physics(mario);
+        gravity = new Physics(mario, ground);
     });
     
     describe("Gravity", function(){
@@ -17,21 +18,21 @@ describe("Physics", function() {
             expect(mario.velocity).toEqual(4);
         });
         
-        it("should increase mario's velocity by acceleration", function() {
+        it("should increase mario's y-velocity by y-acceleration", function() {
             mario.placeAt(new Vector2d(200, 100));
             mario.acceleration = 1;
             gravity.applyEffects();
             expect(mario.velocity).toEqual(1);
         });
 
-        it("should increase mario's y by velocity ", function() {
+        it("should increase mario's y by y-velocity ", function() {
             mario.placeAt(new Vector2d(200, 100));
             mario.velocity = 25;
             gravity.applyEffects();
             expect(mario.getY()).toEqual(125);
         });
 
-        it("should reset the mario's velocity to zero when at ground", function() {
+        it("should reset the mario's y-velocity to zero when at ground", function() {
             mario.placeAt(new Vector2d(0, 400));
             mario.velocity = 100;
             gravity.applyEffects();

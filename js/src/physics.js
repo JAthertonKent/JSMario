@@ -1,19 +1,28 @@
 "use strict";
 
-function Physics(entity) {
-    this.entity = entity;
+function Physics(mobileEntity, ground) {
+    this.mobileEntity = mobileEntity;
+    this.ground = ground;
 }
 
 Physics.prototype.applyEffects = function() {
-    this.entity.moveDown(this.entity.velocity);
-    this.increaseVelocityIfNotGrounded(this.entity);
+    this.mobileEntity.moveDown(this.mobileEntity.velocity);
+    this.increaseVelocityIfNotGrounded(this.mobileEntity);
+
+    _.each(this.ground.positions, this.keepOnGround, this);
 }
 
-Physics.prototype.increaseVelocityIfNotGrounded = function (entity) {
-    if (entity.position.getY() > entity.groundY) {
-        entity.velocity = 0;
+Physics.prototype.keepOnGround = function (it){ 
+    if (isCollide(it, this.mobileEntity)) {
+        this.mobileEntity.placeAt(new Vector2d(this.mobileEntity.getX(), it.getY() - this.mobileEntity.getHeight()))
+    }
+}
+
+Physics.prototype.increaseVelocityIfNotGrounded = function (mobileEntity) {
+    if (mobileEntity.position.getY() > mobileEntity.groundY) {
+        mobileEntity.velocity = 0;
     } else {
-        entity.velocity += entity.acceleration;
+        mobileEntity.velocity += mobileEntity.acceleration;
     }
 }
 
