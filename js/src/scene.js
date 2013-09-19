@@ -4,7 +4,7 @@ function Scene(background, mario, ground){
     this.background = background;
     this.mario = mario;
     this.ground = ground;
-    this.physics = new Physics(this.mario, this.ground);
+    this.physics = new Physics([this.mario], this.ground);
 }
 
 Scene.prototype.drawScene = function (){

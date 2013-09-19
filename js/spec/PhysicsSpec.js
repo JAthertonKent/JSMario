@@ -10,7 +10,7 @@ describe("Physics", function() {
         mario_sprite = jasmine.createSpyObj('sprite', ['draw']);
         mario = new Actor(new Vector2d(5, 200), mario_sprite);
         var ground = { positions: [new Entity2d(new Vector2d(0, 400), mario_sprite)] };
-        gravity = new Physics(mario, ground);
+        gravity = new Physics([mario], ground);
     });
     
     describe("Gravity", function(){

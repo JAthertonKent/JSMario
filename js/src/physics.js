@@ -1,27 +1,36 @@
 "use strict";
 
-function Physics(mobileEntity, ground) {
-    this.mobileEntity = mobileEntity;
-    this.mobileEntity.velocity = 0;
-    this.mobileEntity.acceleration = .15;
+function Physics(mobileEntities, ground) {
+    this.mobileEntityArray = mobileEntities;
     this.ground = ground;
+
+    this.initializeMobileEntities();
 }
+
+Physics.prototype.initializeMobileEntities = function() {
+    _.each(this.mobileEntityArray, function(it){it.velocity=0; it.acceleration=.15;});
+};
 
 Physics.prototype.applyEffects = function() {
-    this.increaseVelocity(this.mobileEntity);
-    _.each(this.ground.positions, this.keepOnGround, this);
-    this.mobileEntity.pushDown(this.mobileEntity.velocity);
-}
+    _.each(this.mobileEntityArray, function(it){this.increaseVelocity(it)}, this);
 
-Physics.prototype.keepOnGround = function (it){
-    if (isCollide(it, this.mobileEntity)) {
-        placeOnTopOf(this.mobileEntity, it);
-        this.mobileEntity.velocity = 0;
-    }
+    _.each(this.mobileEntityArray, 
+            function(entity){
+                _.each(this.ground.positions, keepOnGround, entity)
+            }, this);
+
+    _.each(this.mobileEntityArray, function(it){it.pushDown(it.velocity)});
 }
 
 Physics.prototype.increaseVelocity = function (mobileEntity) {
     mobileEntity.velocity += mobileEntity.acceleration;
+}
+
+function keepOnGround(it){
+    if (isCollide(it, this)) {
+        placeOnTopOf(this, it);
+        this.velocity = 0;
+    }
 }
 
 function placeOnTopOf(entity, base) {
