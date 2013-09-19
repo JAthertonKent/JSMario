@@ -9,10 +9,10 @@ var background = new Background(new Vector2d(0, 0), new Sprite(game.context, 'im
 var mario = new Actor(new Vector2d(200, 100), new Sprite(game.context, 'img/mario.gif'));
 var ground = new Ground(new Vector2d(0, 450), new Sprite(game.context, 'img/brick.png'));
 
-game.scene = new Scene(background, mario, ground);
-
 var start = function (window) {
     
+    game.scene = new Scene(background, mario, ground);
+
     function gameLoop() {
         game.context.clearRect(0, 0, 800, 474);
         game.scene.drawScene();
