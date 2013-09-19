@@ -10,7 +10,7 @@ describe("Physics", function() {
         sprite = jasmine.createSpyObj('sprite', ['draw']);
         mario = new Actor(new Vector2d(5, 200), sprite);
         var ground = { positions: [new Entity2d(new Vector2d(0, 400), sprite)] };
-        physics = new Physics([mario], ground);
+        physics = new Physics([mario], [ground]);
     });
     
     describe("Gravity", function(){
@@ -59,7 +59,7 @@ describe("Physics", function() {
         it("should move actor to top of block when colliding", function() {
             mario = new Actor(new Vector2d(0, 0), sprite);
             ground = new Ground(new Vector2d(0, 0), sprite);
-            physics = new Physics([mario], ground);
+            physics = new Physics([mario], [ground]);
             physics.applyEffects();
             expect(mario.getY()).toBeLessThan(0);
         });

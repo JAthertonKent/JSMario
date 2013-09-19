@@ -89,7 +89,7 @@ describe("Entity2d", function () {
 
         it("should scroll brick array", function() {
             var ground_sprite = jasmine.createSpyObj('sprite', ['draw']); 
-            var ground = new Ground(new Vector2d(0, 450), ground_sprite);
+            var ground = new Ground(new Vector2d(0, 450), ground_sprite, 1);
             var expected = ground.positions[0].getX();
             var expectedTwo = ground.positions[10].getX();
             ground.moveLeft();
