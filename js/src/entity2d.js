@@ -43,6 +43,9 @@ Entity2d.prototype.moveUp = function() {
 };
 
 Entity2d.prototype.moveDown = function() {
-    this.position.addY(this.step);
+    this.pushDown(this.step);
 };
 
+Entity2d.prototype.pushDown = function(step) {
+    this.position.addY(step);
+};

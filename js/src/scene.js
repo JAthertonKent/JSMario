@@ -1,37 +1,23 @@
 "use strict";
 
-function Scene(background, mario, ground){
-    this.background = background;
-    this.mario = mario;
-    this.ground = ground;
-    this.physics = new Physics([this.mario], this.ground);
+//Background should always be the first entity and the actor the second
+function Scene(entities, physics){
+    this.entities = entities;
+    this.physics = physics;
 }
 
 Scene.prototype.drawScene = function (){
     this.physics.applyEffects();
     this.keepFromFarRight(); 
 
-    this.background.draw();
-    this.mario.draw();
-    this.ground.draw();
+    _.each(this.entities, function(it){it.draw()});
 };
 
 Scene.prototype.keepFromFarRight = function (){
-    if (this.mario.getX() > 400) {
-        this.background.moveLeft();
-        this.ground.moveLeft();
-        this.mario.pushBack();
+    if (this.entities[1].getX() > 400) {
+        _.each(this.entities, function(it){it.moveLeft()});
     }
 }
 
-Scene.prototype.keypress = function (event) {
-    var keyMap = {
-        37: this.mario.moveLeft,    //left arrow
-        38: this.mario.moveUp,      //up arrow
-        39: this.mario.moveRight,   //right arrow
-        40: this.mario.moveDown     //down arrow
-    };
 
-    keyMap[event.which].apply(this.mario);
-};
 

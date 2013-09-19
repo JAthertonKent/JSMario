@@ -21,10 +21,6 @@ describe("Entity2d", function () {
         beforeEach(function () {
             mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'switchImage']);
             mario = new Actor(position, mario_sprite);
-            spyBackground = jasmine.createSpyObj('background', ['moveRight', 'draw']);
-            spyBackground.sprite = background_sprite;
-            spyBackground.position = position;
-            scene = new Scene(spyBackground, mario, ground);
         });
        
         it("should draw its sprite", function () {
@@ -42,15 +38,12 @@ describe("Entity2d", function () {
         });
 
         it("should flip when walks left", function(){
-            scene.drawScene();
-
-            scene.keypress({which: 37});
+            mario.turnLeftAndMove();
             expect(mario_sprite.switchImage).toHaveBeenCalled();
         });
         
         it("should flip when walks right", function(){
-            scene.drawScene();
-            scene.keypress({which: 39});
+            mario.turnRightAndMove();
             expect(mario_sprite.switchImage).toHaveBeenCalled();
         });
 

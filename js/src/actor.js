@@ -8,16 +8,21 @@ function Actor(position, sprite) {
 
 Actor.prototype = new Entity2d();
 
-Actor.prototype.moveLeft = function() {
-    this.sprite.switchImage(this.position, 'img/leftMario.gif');
-
-    this.pushBack();
-};
-
-Actor.prototype.moveRight = function() {
+Actor.prototype.turnRightAndMove = function() {
     this.sprite.switchImage(this.position, 'img/mario.gif');
 
-    this.position.addX(this.step);
+    this.moveRight();
+};
+
+
+Actor.prototype.turnLeftAndMove = function() {
+    this.sprite.switchImage(this.position, 'img/leftMario.gif');
+
+    this.moveLeft();
+};
+
+Actor.prototype.moveLeft = function() {
+    this.position.getX() <= this.step ? this.position.addX(0) : this.position.addX(-this.step);
 };
 
 Actor.prototype.moveUp = function() {
@@ -25,16 +30,3 @@ Actor.prototype.moveUp = function() {
     this.velocity = -4; // stinky
     this.position.addY(-this.step);
 };
-
-Actor.prototype.moveDown = function() {
-    this.pushDown(this.step);
-};
-
-Actor.prototype.pushDown = function(step) {
-    this.position.addY(step);
-};
-
-Actor.prototype.pushBack = function() {
-    this.position.getX() <= this.step ? this.position.addX(0) : this.position.addX(-this.step);
-};
-

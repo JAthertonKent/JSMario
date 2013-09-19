@@ -10,8 +10,6 @@ function Ground(position, sprite) {
     }, this.positions);    
 }
 
-Ground.prototype = new Entity2d();
-
 Ground.prototype.draw = function() {
     var drawIt = function(it){ it.draw() }
     _.each(this.positions, drawIt);
