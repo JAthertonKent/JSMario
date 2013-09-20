@@ -14,13 +14,11 @@ Physics.prototype.initializeMobileEntities = function() {
 Physics.prototype.applyEffects = function() {
     _.each(this.mobileEntityArray, function(it){this.increaseVelocity(it)}, this);
 
-    _.each(this.mobileEntityArray, 
-            function(entity){
-                _.each(this.ground,
-                    function(it){
-                        _.each(it.positions, keepOnGround, this)
-                    }, entity); 
-            }, this);
+    _.each(this.mobileEntityArray, function(entity){
+        _.each(this.ground, function(it){
+            _.each(it.positions, keepOnGround, this)
+        }, entity); 
+    }, this);
 
     _.each(this.mobileEntityArray, function(it){it.pushDown(it.velocity)});
 }
