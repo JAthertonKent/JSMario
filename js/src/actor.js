@@ -1,32 +1,33 @@
 "use strict";
 
-function Actor(position, sprite) {
-    this.position = position;
-    this.sprite = sprite;
-    this.step = 5;
-}
+var game = game || {};
 
-Actor.prototype = new Entity2d();
+var actor = function(spec) {
+    var that = entity(spec);
 
-Actor.prototype.turnRightAndMove = function() {
-    this.sprite.switchImage(this.position, 'img/mario.gif');
+    that.turnRightAndMove = function() {
+        that.sprite.switchImage(that.position, 'img/mario.gif');
 
-    this.moveRight();
-};
+        that.moveRight();
+    };
 
 
-Actor.prototype.turnLeftAndMove = function() {
-    this.sprite.switchImage(this.position, 'img/leftMario.gif');
+    that.turnLeftAndMove = function() {
+        that.sprite.switchImage(that.position, 'img/leftMario.gif');
 
-    this.moveLeft();
-};
+        that.moveLeft();
+    };
 
-Actor.prototype.moveLeft = function() {
-    this.position.getX() <= this.step ? this.position.addX(0) : this.position.addX(-this.step);
-};
+    that.moveLeft = function() {
+        that.position.getX() <= that.step ? that.position.addX(0) : that.position.addX(-that.step);
+    };
 
-Actor.prototype.moveUp = function() {
-    var bound = 0;
-    this.velocity = -4; // stinky
-    this.position.addY(-this.step);
+    that.moveUp = function() {
+        var bound = 0;
+        that.velocity = -4; // stinky
+        that.position.addY(-that.step);
+
+    };
+
+    return that;
 };

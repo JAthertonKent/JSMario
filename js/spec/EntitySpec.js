@@ -20,7 +20,7 @@ describe("Entity2d", function () {
         var mario, mario_sprite, scene, spyBackground;
         beforeEach(function () {
             mario_sprite = jasmine.createSpyObj('sprite', ['draw', 'switchImage']);
-            mario = new Actor(position, mario_sprite);
+            mario = actor({position: position, sprite: mario_sprite});
         });
        
         it("should draw its sprite", function () {
@@ -28,15 +28,6 @@ describe("Entity2d", function () {
             expect(mario_sprite.draw).toHaveBeenCalledWith(position);
         });
     
-        xit("should not go underground", function() {
-            mario = new Actor(new Vector2d(200, 100), mario_sprite);
-            mario.draw();
-            for(var i = 0; i < 100; i++){
-                mario.moveDown();
-            }
-            expect(mario.getY()).toBeLessThan(401);
-        });
-
         it("should flip when walks left", function(){
             mario.turnLeftAndMove();
             expect(mario_sprite.switchImage).toHaveBeenCalled();
@@ -48,12 +39,12 @@ describe("Entity2d", function () {
         });
 
         it("should jump", function () {
-            mario = new Actor(new Vector2d(200, 100), mario_sprite);
+            mario = actor({position: new Vector2d(200, 100), sprite: mario_sprite});
             mario.moveUp();
             expect(mario.velocity).toEqual(-4);
         });
 
-});
+    });
     
   
     describe("Background", function () {

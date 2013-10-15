@@ -8,7 +8,7 @@ describe("Scene", function() {
 
     beforeEach(function () {
         sprite = jasmine.createSpyObj('sprite', ['draw', 'switchImage']);
-        mario = new Actor(new Vector2d(5, 200), sprite);
+        mario = actor({position: new Vector2d(5, 200), sprite: sprite});
         spyBackground = jasmine.createSpyObj('background', ['draw', 'moveLeft']);
         ground = jasmine.createSpyObj('obstacle', ['draw', 'moveLeft']);
         physics = jasmine.createSpyObj('physics', ['applyEffects']);
@@ -27,14 +27,14 @@ describe("Scene", function() {
     });
 
     it("should check actor's position and tell background to scroll if in middle", function() {
-        mario = new Actor(new Vector2d(401, 0), sprite);
+        mario = actor({position: new Vector2d(401, 0), sprite: sprite});
         scene = new Scene([spyBackground, mario, ground], physics);
         scene.drawScene();
         expect(spyBackground.moveLeft).toHaveBeenCalled();
     });
 
     it("should push actor back if background scrolls", function() {
-        mario = new Actor(new Vector2d(401, 0), sprite);
+        mario = actor({position: new Vector2d(401, 0), sprite: sprite});
         scene = new Scene([spyBackground, mario, ground], physics);
         scene.drawScene();
         expect(mario.getX()).toBeLessThan(400);

@@ -49,3 +49,5 @@ Entity2d.prototype.moveDown = function() {
 Entity2d.prototype.pushDown = function(step) {
     this.position.addY(step);
 };
+
+

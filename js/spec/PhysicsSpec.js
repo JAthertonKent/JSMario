@@ -8,7 +8,9 @@ describe("Physics", function() {
         Entity2d.prototype.getHeight = function () { return 35 };
         Entity2d.prototype.getWidth = function () { return 35 };
         sprite = jasmine.createSpyObj('sprite', ['draw']);
-        mario = new Actor(new Vector2d(5, 200), sprite);
+        mario = actor({position: new Vector2d(5, 200), sprite: sprite});
+        mario.getWidth = function () { return 35 };
+        mario.getHeight = function () { return 35 };
         var ground = { positions: [new Entity2d(new Vector2d(0, 400), sprite)] };
         physics = new Physics([mario], [ground]);
     });
@@ -57,7 +59,9 @@ describe("Physics", function() {
         });
 
         it("should move actor to top of block when colliding", function() {
-            mario = new Actor(new Vector2d(0, 0), sprite);
+            mario = actor({position: new Vector2d(0, 0), sprite: sprite});
+            mario.getWidth = function () { return 35 };
+            mario.getHeight = function () { return 35 };
             ground = new Ground(new Vector2d(0, 0), sprite);
             physics = new Physics([mario], [ground]);
             physics.applyEffects();
