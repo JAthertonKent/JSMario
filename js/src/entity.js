@@ -1,7 +1,5 @@
 "use strict";
 
-var game = game || {};
-
 var entity = function(spec) {
     var that = {};
     that.position = spec.position;

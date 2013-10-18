@@ -1,21 +1,18 @@
 "use strict";
 
-function Background(position, sprite) {
-    this.position = position;
-    this.ptwo = new Vector2d(800,0);
-    this.sprite = sprite;
-    this.step = 5;
-}
+var background = function(spec) {
+    var that = entity(spec);
+    that.ptwo = new Vector2d(800,0);
 
-Background.prototype = new Entity2d();
+    that.draw = function() {
+        that.sprite.draw(that.position);
+        that.sprite.draw(that.ptwo);
+    };
 
-Background.prototype.draw = function() {
-    this.sprite.draw(this.position);
-    this.sprite.draw(this.ptwo);
+    that.moveLeft = function() {
+        that.ptwo.getX() <= -795 ? that.ptwo.addX(1595) : that.ptwo.addX(-that.step);
+        that.position.getX() <= -795 ? that.position.addX(1595) : that.position.addX(-that.step);
+    };
+
+    return that;
 };
-
-Background.prototype.moveLeft = function() {
-    this.ptwo.getX() <= -795 ? this.ptwo.addX(1595) : this.ptwo.addX(-this.step);
-    this.position.getX() <= -795 ? this.position.addX(1595) : this.position.addX(-this.step);
-};
-

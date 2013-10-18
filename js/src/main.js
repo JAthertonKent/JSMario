@@ -5,7 +5,7 @@ var game = game || {};
 game.canvas = document.getElementById('gameOne');
 game.context = game.canvas.getContext('2d');
 
-var background = new Background(new Vector2d(0, 0), new Sprite(game.context, 'img/bg.jpg'));
+var background = background({position: new Vector2d(0, 0), sprite: new Sprite(game.context, 'img/bg.jpg')});
 var mario = actor({position: new Vector2d(200, 100), sprite: new Sprite(game.context, 'img/mario.gif')});
 var mario1 = actor({position: new Vector2d(600, 50), sprite: new Sprite(game.context, 'img/mario.gif')});
 var ground = new Ground(new Vector2d(0, 450), new Sprite(game.context, 'img/brick.png'), 1);
