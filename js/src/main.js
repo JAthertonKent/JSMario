@@ -8,9 +8,7 @@ game.context = game.canvas.getContext('2d');
 var background = background({position: new Vector2d(0, 0), sprite: new Sprite(game.context, 'img/bg.jpg')});
 var mario = actor({position: new Vector2d(200, 100), sprite: new Sprite(game.context, 'img/mario.gif')});
 var mario1 = actor({position: new Vector2d(600, 50), sprite: new Sprite(game.context, 'img/mario.gif')});
-var ground = new Ground(new Vector2d(0, 450), new Sprite(game.context, 'img/brick.png'), 1);
-var ground2 = new Ground(new Vector2d(0, 250), new Sprite(game.context, 'img/brick.png'), 3);
-var ground3 = new Ground(new Vector2d(0, 350), new Sprite(game.context, 'img/brick.png'), 3);
+var ground = platform({position: new Vector2d(0, 450), sprite: new Sprite(game.context, 'img/brick.png'), iter: 1});
 
 var start = function (window) {
     

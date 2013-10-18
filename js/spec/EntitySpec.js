@@ -1,16 +1,12 @@
 describe("Entity2d", function () {
     var position;
     var sprite;
-    var ground;
 
     beforeEach(function () {
         Entity2d.prototype.getHeight = function () { return 35 };
         Entity2d.prototype.getWidth = function () { return 35 };
         position = jasmine.createSpyObj('vector2d', ['getX', 'getY', 'addX', 'addY']);
         sprite = jasmine.createSpyObj('sprite', ['draw']); 
-        ground = new Ground(new Vector2d(0, 450), sprite);
-
-        
     });
 
     describe("Actor", function () {
@@ -66,16 +62,16 @@ describe("Entity2d", function () {
 
     });
 
-    describe("Ground", function() {
-        
+    describe("Platform", function() {
+        var ground;
         it("should draw an array of brick sprites", function() {
-            var ground = new Ground(new Vector2d(0, 450), sprite);
+            ground = platform({position: new Vector2d(0, 450), sprite: sprite, iter: 1});
             ground.draw();
             expect(sprite.draw.callCount).toBeGreaterThan(1);
         });
 
         it("should scroll brick array", function() {
-            var ground = new Ground(new Vector2d(0, 450), sprite, 1);
+            ground = platform({position: new Vector2d(0, 450), sprite: sprite, iter: 1});
             var expected = ground.positions[0].getX();
             var expectedTwo = ground.positions[10].getX();
             ground.moveLeft();

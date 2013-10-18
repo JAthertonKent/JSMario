@@ -1,28 +1,26 @@
 "use strict";
 
-function Ground(position, sprite, iter) {
-    this.position = position;
-    this.sprite = sprite;
-    //TODO:extract method
-    //     There might also be a bug when you try to init a new ground with x
-    //     other than zero 
-    this.positions = new Array(); 
-    _.each(_.range(position.getX(), 63), function(x){ 
-        this.push(new Tile(new Vector2d(iter*(x*24) , position.getY()), sprite))
-    }, this.positions);    
-}
+var platform = function(spec) {
+    var that = entity(spec);
+    that.iter = spec.iter;
 
-Ground.prototype.draw = function() {
-    var drawIt = function(it){ it.draw() }
-    _.each(this.positions, drawIt);
+    that.positions = new Array(); 
+    _.each(_.range(that.position.getX(), 63), function(x){ 
+        this.push(new Tile(new Vector2d(that.iter*(x*24) , that.position.getY()), that.sprite))
+    }, that.positions);    
+
+    that.draw = function() {
+        var drawIt = function(it){ it.draw() }
+        _.each(that.positions, drawIt);
+    };
+
+    that.moveLeft = function() {
+        var moveItLeft = function(it){ it.moveLeft() }
+        _.each(that.positions, moveItLeft);
+    };
+
+    return that;
 };
-
-Ground.prototype.moveLeft = function() {
-    var moveItLeft = function(it){ it.moveLeft() }
-    _.each(this.positions, moveItLeft);
-};
-
-
 
 function Tile(position, sprite) {
     this.position = position;
