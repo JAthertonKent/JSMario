@@ -2,7 +2,7 @@
 
 var background = function(spec) {
     var that = entity(spec);
-    that.ptwo = new Vector2d(800,0);
+    that.ptwo = vector(800,0);
 
     that.draw = function() {
         that.sprite.draw(that.position);

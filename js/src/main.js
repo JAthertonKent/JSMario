@@ -1,42 +1,40 @@
 "use strict";
 
-var game = game || {};
-
-game.canvas = document.getElementById('gameOne');
-game.context = game.canvas.getContext('2d');
-
-var background = background({position: new Vector2d(0, 0), sprite: new Sprite(game.context, 'img/bg.jpg')});
-var mario = actor({position: new Vector2d(200, 100), sprite: new Sprite(game.context, 'img/mario.gif')});
-var mario1 = actor({position: new Vector2d(600, 50), sprite: new Sprite(game.context, 'img/mario.gif')});
-var ground = platform({position: new Vector2d(0, 450), sprite: new Sprite(game.context, 'img/brick.png'), iter: 1});
-
 var start = function (window) {
-    
-    var physics = new Physics([mario], [ground]);
-    //player mario needs to be second entity!!!
-    game.scene = new Scene([background, mario, ground], physics);
+    var keypress = function (activeEntity) {
+        var keyMap = {
+            37: activeEntity.turnLeftAndMove,      //left arrow
+            38: activeEntity.moveUp,               //up arrow
+            39: activeEntity.turnRightAndMove,     //right arrow
+            40: activeEntity.moveDown              //down arrow
+        };
 
-    function gameLoop() {
-        game.context.clearRect(0, 0, 800, 474);
-        game.scene.drawScene();
+        return function (event) {
+            keyMap[event.which].apply(activeEntity);
+        };
+    };
+
+    var context = document.getElementById('gameOne').getContext('2d');
+
+    var bkg = background({position: vector(0, 0), sprite: new Sprite(context, 'img/bg.jpg')});
+    var mario = actor({position: vector(200, 100), sprite: new Sprite(context, 'img/mario.gif')});
+    var mario1 = actor({position: vector(600, 50), sprite: new Sprite(context, 'img/mario.gif')});
+    var ground = platform({position: vector(0, 450), sprite: new Sprite(context, 'img/brick.png'), iter: 1});
+    var ground1 = platform({position: vector(0, 200), sprite: new Sprite(context, 'img/brick.png'), iter: 4});
+
+    var physics = new Physics([mario], [ground, ground1]);
+    //player mario needs to be second entity!!!
+    var scene = new Scene([bkg, mario, ground, ground1], physics);
+
+    var gameLoop = function () {
+        context.clearRect(0, 0, 800, 474);
+        scene.drawScene();
     }
-    
+
+    $(document.body).on('keydown', keypress(mario)); 
     window.setInterval(gameLoop, 1000 / 60); // 60fps
 };
 
-function keypress(event) {
-    var keyMap = {
-        37: mario.turnLeftAndMove,      //left arrow
-        38: mario.moveUp,               //up arrow
-        39: mario.turnRightAndMove,     //right arrow
-        40: mario.moveDown              //down arrow
-    };
-
-    keyMap[event.which].apply(mario);
-};
-
-start(window);
-
-$(document.body).on('keydown', keypress); 
-
-
+$(document).ready(function() {
+    start(window)
+});

@@ -8,34 +8,41 @@ function Physics(mobileEntities, ground) {
 }
 
 Physics.prototype.initializeMobileEntities = function() {
-    _.each(this.mobileEntityArray, function(it){it.velocity=0; it.acceleration=.15;});
+    _.each(this.mobileEntityArray, function(it){
+        it.velocity = vector(0, 0);
+        it.acceleration=.15;
+    });
 };
 
 Physics.prototype.applyEffects = function() {
-    _.each(this.mobileEntityArray, function(it){this.increaseVelocity(it)}, this);
+    _.each(this.mobileEntityArray, function(it) {
+        this.increaseVelocity(it)
+    }, this);
 
-    _.each(this.mobileEntityArray, function(entity){
-        _.each(this.ground, function(it){
+    _.each(this.mobileEntityArray, function(entity) {
+        _.each(this.ground, function(it) {
             _.each(it.positions, keepOnGround, this)
         }, entity); 
     }, this);
 
-    _.each(this.mobileEntityArray, function(it){it.pushDown(it.velocity)});
+    _.each(this.mobileEntityArray, function(it){
+        it.pushDown(it.velocity.getY());
+    });
 }
 
 Physics.prototype.increaseVelocity = function (mobileEntity) {
-    mobileEntity.velocity += mobileEntity.acceleration;
+    mobileEntity.velocity.addY(mobileEntity.acceleration);
 }
 
 function keepOnGround(it){
     if (isCollide(it, this)) {
         placeOnTopOf(this, it);
-        this.velocity = 0;
+        this.velocity.setY(0);
     }
 }
 
 function placeOnTopOf(entity, base) {
-    entity.placeAt(new Vector2d(entity.getX(), base.getY() - entity.getHeight()));
+    entity.placeAt(vector(entity.getX(), base.getY() - entity.getHeight()));
 }
 
 function isCollide(a, b) {

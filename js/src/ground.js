@@ -5,8 +5,9 @@ var platform = function(spec) {
     that.iter = spec.iter;
 
     that.positions = new Array(); 
-    _.each(_.range(that.position.getX(), 63), function(x){ 
-        this.push(new Tile(new Vector2d(that.iter*(x*24) , that.position.getY()), that.sprite))
+    _.each(_.range(that.position.getX(), 63), function(x){
+        var tilePosition = vector(that.iter*(x*24) , that.position.getY());
+        this.push(tile({position: tilePosition, sprite: that.sprite}));
     }, that.positions);    
 
     that.draw = function() {
@@ -22,14 +23,16 @@ var platform = function(spec) {
     return that;
 };
 
-function Tile(position, sprite) {
-    this.position = position;
-    this.sprite = sprite;
-    this.step = 5;
-}
+var tile = function(spec) {
+    var that = entity(spec);
+    var bkgWidth = 800;
 
-Tile.prototype = new Entity2d();
-
-Tile.prototype.moveLeft = function() {
-    this.position.getX() <= -795 ? this.position.addX(1595) : this.position.addX(-5); 
+    that.moveLeft = function() {
+        if (that.position.getX() <= -(bkgWidth - that.step)) {
+            that.position.addX(2*bkgWidth - that.step);
+        } else {
+            that.position.addX(-that.step);
+        }
+    };
+    return that;
 };

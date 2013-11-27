@@ -1,7 +1,5 @@
 "use strict";
 
-var game = game || {};
-
 var actor = function(spec) {
     var that = entity(spec);
 
@@ -24,9 +22,8 @@ var actor = function(spec) {
 
     that.moveUp = function() {
         var bound = 0;
-        that.velocity = -4; // stinky
+        that.velocity.setY(-4);
         that.position.addY(-that.step);
-
     };
 
     return that;
