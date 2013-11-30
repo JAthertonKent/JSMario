@@ -34,8 +34,13 @@ var entity = function(spec) {
         that.position.addX(-that.step);
     };
 
+    // TODO compress move/push methods together
     that.moveRight = function() {
         that.position.addX(that.step);
+    };
+
+    that.pushRight = function(step) {
+        that.position.addX(step);
     };
 
     that.moveUp = function() {

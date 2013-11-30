@@ -6,18 +6,13 @@ var actor = function(spec) {
     that.turnRightAndMove = function() {
         that.sprite.switchImage(that.position, 'img/mario.gif');
 
-        that.moveRight();
+        that.acceleration.setX(0.1);
     };
-
 
     that.turnLeftAndMove = function() {
         that.sprite.switchImage(that.position, 'img/leftMario.gif');
 
-        that.moveLeft();
-    };
-
-    that.moveLeft = function() {
-        that.position.getX() <= that.step ? that.position.addX(0) : that.position.addX(-that.step);
+        that.acceleration.setX(-0.1);
     };
 
     that.moveUp = function() {
@@ -28,3 +23,4 @@ var actor = function(spec) {
 
     return that;
 };
+

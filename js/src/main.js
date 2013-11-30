@@ -10,7 +10,7 @@ var start = function (window) {
         };
 
         return function (event) {
-            keyMap[event.which].apply(activeEntity);
+            keyMap[event.which] && keyMap[event.which].apply(activeEntity);
         };
     };
 
