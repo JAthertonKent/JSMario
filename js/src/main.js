@@ -16,11 +16,11 @@ var start = function (window) {
 
     var context = document.getElementById('gameOne').getContext('2d');
 
-    var bkg = background({position: vector(0, 0), sprite: new Sprite(context, 'img/bg.jpg')});
-    var mario = actor({position: vector(200, 100), sprite: new Sprite(context, 'img/mario.gif')});
-    var mario1 = actor({position: vector(600, 50), sprite: new Sprite(context, 'img/mario.gif')});
-    var ground = platform({position: vector(0, 450), sprite: new Sprite(context, 'img/brick.png'), iter: 1});
-    var ground1 = platform({position: vector(0, 200), sprite: new Sprite(context, 'img/brick.png'), iter: 4});
+    var bkg = background({position: vector(0, 0), sprite: sprite(context, 'img/bg.jpg')});
+    var mario = actor({position: vector(200, 100), sprite: sprite(context, 'img/mario.gif')});
+    var mario1 = actor({position: vector(600, 50), sprite: sprite(context, 'img/mario.gif')});
+    var ground = platform({position: vector(0, 450), sprite: sprite(context, 'img/brick.png'), iter: 1});
+    var ground1 = platform({position: vector(0, 200), sprite: sprite(context, 'img/brick.png'), iter: 4});
 
     var physics = new Physics([mario], [ground, ground1]);
     //player mario needs to be second entity!!!
