@@ -24,11 +24,11 @@ var start = function (window) {
 
     var physics = new Physics([mario], [ground, ground1]);
     //player mario needs to be second entity!!!
-    var scene = new Scene([bkg, mario, ground, ground1], physics);
+    var scn = scene([bkg, mario, ground, ground1], physics);
 
     var gameLoop = function () {
         context.clearRect(0, 0, 800, 474);
-        scene.drawScene();
+        scn.drawScene();
     }
 
     $(document.body).on('keydown', keypress(mario)); 

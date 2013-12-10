@@ -1,23 +1,26 @@
 "use strict";
 
 //Background should always be the first entity and the actor the second
-function Scene(entities, physics){
-    this.entities = entities;
-    this.physics = physics;
-}
+var scene = function (entities, physics) {
+    var that = {};
 
-Scene.prototype.drawScene = function (){
-    this.physics.applyEffects();
-    this.keepFromFarRight(); 
+    that.entities = entities;
+    that.physics = physics;
 
-    _.each(this.entities, function(it){it.draw()});
-};
+    that.drawScene = function (){
+        that.physics.applyEffects();
+        that.keepFromFarRight(); 
 
-Scene.prototype.keepFromFarRight = function (){
-    if (this.entities[1].getX() > 400) {
-        _.each(this.entities, function(it){it.moveLeft()});
+        _.each(that.entities, function(it){it.draw()});
     }
+
+    that.keepFromFarRight = function (){
+        var halfOfBackgroundWidth = 400;
+        if (that.entities[1].getX() > halfOfBackgroundWidth) {
+            _.each(that.entities, function(it){it.moveLeft()});
+        }
+    }
+
+    return that;
 }
-
-
 
