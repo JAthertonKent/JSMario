@@ -1,0 +1,20 @@
+: scene manager
+- controls drawable entities
+  - sprites (correspond to physics entities)
+  - background
+- has a 'focus' entity, which it keeps in view of camera
+
+:physics manager
+- controls physics entites
+  - sprites (correspond to drawable entities)
+  - walls (screen boundaries)
+
+:drawable entity
+  - getImage()
+  - getPosition()
+
+:physics entity
+  - size
+  - position
+  - velocity
+  - acceleration

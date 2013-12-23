@@ -12,6 +12,14 @@ var vector = function(initX, initY) {
         addY: function (dy) { y += dy; },
 
         setX: function (newX) { x = newX; },
-        setY: function (newY) { y = newY; }
+        setY: function (newY) { y = newY; },
+
+	plus: function (v) {
+	    return vector(x + v.getX(), y + v.getY());
+	}
+
+	minus: function (v) {
+	    return vector(x - v.getX(), y - v.getY());
+	}
     };
 };
