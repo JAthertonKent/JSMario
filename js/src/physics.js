@@ -6,7 +6,6 @@ var physics = function(mobileEntities, ground) {
     that.mobileEntityArray = mobileEntities;
     that.ground = ground;
 
-
     that.initializeMobileEntities = function() {
         _.each(that.mobileEntityArray, function(it){
             it.velocity = vector(0, 0);
@@ -20,21 +19,16 @@ var physics = function(mobileEntities, ground) {
         _.each(that.mobileEntityArray, function(it) {
             this.increaseVelocity(it);
             this.keepWithinBounds(it);
-        }, that);
 
-        // TODO get rid of nested calls to _.each()
-        _.each(that.mobileEntityArray, function(entity) {
-            _.each(this.ground, function(it) {
-                _.each(it.positions, keepOnGround, this)
-            }, entity); 
-        }, that);
-
-        _.each(that.mobileEntityArray, function(it) {
             it.pushDown(it.velocity.getY());
             it.pushRight(it.velocity.getX());
-        });
-    }
 
+            // TODO get rid of nested calls to _.each()
+            _.each(this.ground, function(block) {
+                _.each(block.positions, keepOnGround, this)
+            }, it); 
+        }, that);
+    }
 
     that.keepWithinBounds = function (mobileEntity) {
         if (mobileEntity.position.getX() < mobileEntity.step) {
@@ -52,7 +46,6 @@ var physics = function(mobileEntities, ground) {
         mobileEntity.velocity.addX(mobileEntity.acceleration.getX());
     }
 
-    // TODO remove physics functions from global scope
     function enforceMaxVelocity(mobileEntity) {
         var fastestSafeVelocity = mobileEntity.maxVelocityX - 1e-5;
         if (mobileEntity.velocity.getX() > mobileEntity.maxVelocityX) {
@@ -83,6 +76,7 @@ var physics = function(mobileEntities, ground) {
             (a.getX() > (b.getX() + b.getWidth()))
         );
     }
+
     that.initializeMobileEntities();
     return that;
 }
