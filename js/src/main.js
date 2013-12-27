@@ -22,9 +22,9 @@ var start = function (window) {
     var ground = platform({position: vector(0, 450), sprite: sprite(context, 'img/brick.png'), iter: 1});
     var ground1 = platform({position: vector(0, 200), sprite: sprite(context, 'img/brick.png'), iter: 4});
 
-    var physics = new Physics([mario], [ground, ground1]);
+    var physicsObj = physics([mario], [ground, ground1]);
     //player mario needs to be second entity!!!
-    var scn = scene([bkg, mario, ground, ground1], physics);
+    var scn = scene([bkg, mario, ground, ground1], physicsObj);
 
     var gameLoop = function () {
         context.clearRect(0, 0, 800, 474);
