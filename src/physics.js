@@ -65,8 +65,74 @@ var physics = function(mobileEntities, ground) {
     }
 
     function placeOnTopOf(entity, base) {
-        entity.placeAt(vector(entity.getX(), base.getY() - entity.getHeight()));
+        resolveCollision(entity,base);
+        //entity.placeAt(vector(entity.getX(), base.getY() - entity.getHeight()));
     }
+
+    function resolveCollision(player, entity){
+        // Find the mid points of the entity and player
+        var pHalfWidth = player.getWidth() * .5;
+        var pHalfHeight = player.getHeight() * .5; 
+        var pMidX = pHalfWidth + player.getX();
+        var pMidY = pHalfHeight + player.getY();
+
+        var aHalfWidth = (entity.getWidth() * .5);
+        var aHalfHeight = (entity.getHeight() * .5);
+        var aMidX = aHalfWidth + entity.getX();
+        var aMidY = aHalfHeight + entity.getY();
+        // To find the side of entry calculate based on
+        // the normalized sides
+        var dx = (aMidX - pMidX) / aHalfWidth;
+        var dy = (aMidY - pMidY) / aHalfHeight; 
+        // Calculate the absolute change in x and y
+        var absDX = Math.abs(dx);
+        var absDY = Math.abs(dy);
+        // If the distance between the normalized x and y
+        // position is less than a small threshold (.1 in this case)
+        // then this object is approaching from a corner
+        if (Math.abs(absDX - absDY) < .1) {
+            // If the player is approaching from positive X
+            if (dx < 0) {
+                // Set the player x to the right side
+                player.placeAt(vector(entity.getX() + entity.getWidth(), player.getY()));
+            // If the player is approaching from negative X
+            } else {
+                // Set the player x to the left side
+                player.placeAt(vector(entity.getY() - player.getWidth(), player.getY()));
+            }
+            // If the player is approaching from positive Y
+            if (dy < 0) {
+                // Set the player y to the bottom
+                player.placeAt(vector(player.getX(), entity.getY() + entity.getHeight()));
+            // If the player is approaching from negative Y
+            } else {
+                // Set the player y to the top
+                player.placeAt(vector(player.getX(), entity.getY() - player.getHeight()));
+            }
+        // If the object is approaching from the sides
+        } else if (absDX > absDY) {
+            // If the player is approaching from positive X
+            if (dx < 0) {
+                player.placeAt(vector(entity.getX() + entity.getWidth(), player.getY()));
+            } else {
+            // If the player is approaching from negative X
+                player.placeAt(vector(entity.getX() - player.getWidth(), player.getY()));
+            }
+            // TODO: Add X Velocity component
+            // If this collision is coming from the top or bottom more
+            } else {
+                // If the player is approaching from positive Y
+                if (dy < 0) {
+                    player.placeAt(vector(player.getX(), entity.getY() + entity.getHeight()));
+                } else {
+                // If the player is approaching from negative Y
+                    player.placeAt(vector(player.getX(), entity.getY() - player.getHeight()));
+                }
+                // TODO: Add Y Velocity component
+            }
+     
+    }
+
 
     function isCollide(a, b) {
         return !(
